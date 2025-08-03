@@ -1,0 +1,290 @@
+# Cursor Rules - Projeto TypeScript Monorepo
+
+## Visão Geral do Projeto
+Este é um projeto TypeScript monorepo com backend em NestJS e frontend em React, seguindo Clean Architecture, SOLID principles e Use Cases.
+
+## Estrutura do Projeto
+
+### Organização de Pastas
+```
+gwan-transcribe/
+├── doc/                          # Documentação do projeto
+│   ├── project_status.md         # Status de implementação
+│   ├── tasks.md                  # Detalhamento de tarefas
+│   └── architecture/             # Documentação de arquitetura
+├── backend/                      # Aplicação NestJS
+│   ├── src/
+│   │   ├── modules/             # Módulos da aplicação
+│   │   ├── shared/              # Código compartilhado
+│   │   ├── infrastructure/      # Camada de infraestrutura
+│   │   ├── application/         # Camada de aplicação (Use Cases)
+│   │   └── domain/              # Camada de domínio
+│   └── package.json
+├── frontend/                     # Aplicação React
+│   ├── src/
+│   │   ├── components/          # Componentes React
+│   │   ├── hooks/               # Custom hooks
+│   │   ├── services/            # Serviços de API
+│   │   ├── types/               # Tipos TypeScript
+│   │   └── utils/               # Utilitários
+│   └── package.json
+├── shared/                       # Código compartilhado
+│   ├── types/                   # Tipos compartilhados
+│   └── utils/                   # Utilitários compartilhados
+└── package.json                 # Package.json raiz (workspace)
+```
+
+## Padrões de Arquitetura
+
+### Clean Architecture (Backend)
+- **Domain Layer**: Entidades, Value Objects, Interfaces de repositório
+- **Application Layer**: Use Cases, DTOs, Interfaces de serviços
+- **Infrastructure Layer**: Implementações concretas, banco de dados, APIs externas
+- **Presentation Layer**: Controllers, Middlewares, Guards
+
+### SOLID Principles
+- **Single Responsibility**: Cada classe/função tem uma única responsabilidade
+- **Open/Closed**: Aberto para extensão, fechado para modificação
+- **Liskov Substitution**: Subtipos são substituíveis por seus tipos base
+- **Interface Segregation**: Interfaces específicas ao invés de interfaces grandes
+- **Dependency Inversion**: Depender de abstrações, não de implementações
+
+### Use Cases Pattern
+- Cada funcionalidade de negócio deve ter um Use Case dedicado
+- Use Cases devem ser independentes de frameworks
+- Input/Output através de DTOs bem definidos
+
+## Convenções de Código
+
+### TypeScript
+- Sempre usar tipos explícitos
+- Preferir interfaces sobre types quando possível
+- Usar enums para valores constantes
+- Implementar strict mode no tsconfig.json
+
+### Nomenclatura
+- **Classes**: PascalCase (ex: UserService)
+- **Interfaces**: PascalCase com prefixo I (ex: IUserRepository)
+- **Funções/Variáveis**: camelCase (ex: getUserById)
+- **Constantes**: UPPER_SNAKE_CASE (ex: API_BASE_URL)
+- **Arquivos**: kebab-case (ex: user-service.ts)
+
+### Estrutura de Arquivos
+- Um arquivo por classe/interface
+- Agrupar arquivos relacionados em pastas
+- Usar index.ts para exports
+- Manter arquivos com máximo 200-300 linhas
+
+## Backend (NestJS)
+
+### Estrutura de Módulos
+```
+src/modules/user/
+├── domain/
+│   ├── entities/
+│   ├── value-objects/
+│   └── repositories/
+├── application/
+│   ├── use-cases/
+│   ├── dto/
+│   └── interfaces/
+├── infrastructure/
+│   ├── repositories/
+│   ├── controllers/
+│   └── services/
+└── user.module.ts
+```
+
+### Padrões de Implementação
+- Usar decorators do NestJS (@Injectable, @Controller, etc.)
+- Implementar injeção de dependência
+- Usar DTOs para validação de entrada
+- Implementar interceptors para logging/erro
+- Usar guards para autenticação/autorização
+
+### Use Cases
+- Cada Use Case deve ter um método `execute()`
+- Input/Output através de DTOs
+- Não depender de frameworks externos
+- Implementar tratamento de erros
+
+## Frontend (React)
+
+### Estrutura de Componentes
+- Componentes funcionais com hooks
+- Custom hooks para lógica reutilizável
+- Context API para estado global
+- Props tipadas com interfaces
+
+### Padrões de Estado
+- useState para estado local
+- useContext para estado compartilhado
+- useReducer para estado complexo
+- Evitar prop drilling
+
+### Serviços de API
+- Axios para requisições HTTP
+- Interceptors para headers/tokens
+- Tipagem forte para responses
+- Error handling centralizado
+
+## Documentação
+
+### Pasta /doc
+- **project_status.md**: Status atual de implementação
+- **tasks.md**: Lista detalhada de tarefas com status
+- **prd.md**: Product Requirements Document (requisitos do produto)
+- **architecture/**: Documentação de arquitetura
+- **api/**: Documentação de APIs
+- **deployment/**: Guias de deploy
+
+### README.md
+- Deve apontar para documentação em /doc
+- Incluir links para project_status.md e tasks.md
+- Guia rápido de setup
+- Links para documentação de arquitetura
+
+### Atualização Obrigatória
+- **project_status.md** deve ser mantido sempre atualizado com o status real de implementação
+- **tasks.md** deve ser atualizado conforme tarefas são executadas
+- **prd.md** deve ser respeitado como fonte da verdade para requisitos do produto
+- Qualquer mudança nos requisitos deve ser refletida no prd.md primeiro
+
+## Boas Práticas
+
+### Código
+- Evitar duplicação de código
+- Implementar logging estruturado
+- Usar environment variables
+- Implementar error handling robusto
+- Seguir princípios de segurança
+
+### Performance
+- Lazy loading de módulos
+- Code splitting no frontend
+- Caching estratégico
+- Otimização de queries
+
+### Manutenibilidade
+- Código auto-documentado
+- Comentários apenas quando necessário
+- Refatoração contínua
+- Revisão de código
+
+## Configurações
+
+### TypeScript
+- Strict mode habilitado
+- NoImplicitAny: true
+- StrictNullChecks: true
+- Path mapping para imports
+
+### ESLint/Prettier
+- Configuração consistente
+- Auto-format no save
+- Regras específicas para React/TypeScript
+
+### Git
+- Conventional commits
+- Branch naming: feature/, bugfix/, hotfix/
+- Pull request reviews obrigatórios
+
+## Desenvolvimento
+
+### Workflow
+1. Criar branch a partir de main
+2. Implementar feature/fix
+3. Commits atômicos e descritivos
+4. Pull request com descrição clara
+5. Code review obrigatório
+6. Merge após aprovação
+
+### Debugging
+- Logs estruturados
+- Error boundaries no frontend
+- Debug mode configurável
+- Stack traces detalhados
+
+## Deploy e Infraestrutura
+
+### Ambientes
+- Development (Docker Compose)
+- Production (Portainer/Docker Swarm)
+
+### Configuração
+- Environment variables por ambiente
+- Secrets management
+- Health checks
+- Monitoring e alerting
+- Containerização com Docker
+- Orquestração com Portainer
+
+### URLs de Produção
+- **API**: api.transcribe.gwan.br
+- **Frontend**: transcribe.gwan.br
+- **Portainer**: Servidor Portainer
+
+### Sistema de Filas
+- **RabbitMQ** para processamento assíncrono
+- Filas para transcrição de áudio
+- Filas para envio de emails
+- Workers para processamento em background
+
+## Regras Específicas
+
+### Não Criar
+- Testes unitários (conforme especificação)
+- Código duplicado
+- Arquivos muito longos (>300 linhas)
+- Dependências desnecessárias
+
+### Sempre Implementar
+- Error handling
+- Logging
+- Validação de entrada
+- Tipagem forte
+- Documentação de APIs
+- Atualização do project_status.md após mudanças
+- Atualização do tasks.md conforme execução
+- Respeito aos requisitos definidos no prd.md
+
+## Comandos Úteis
+
+### Backend
+```bash
+pnpm run start:dev    # Desenvolvimento
+pnpm run build        # Build produção
+pnpm run test:e2e     # Testes E2E
+```
+
+### Frontend
+```bash
+pnpm run dev          # Desenvolvimento
+pnpm run build        # Build produção
+pnpm run preview      # Preview build
+```
+
+### Monorepo
+```bash
+pnpm run dev          # Desenvolvimento completo
+pnpm run build        # Build completo
+pnpm run clean        # Limpar builds
+```
+
+### Docker
+```bash
+docker-compose -f docker-compose.dev.yml up    # Desenvolvimento
+docker-compose -f docker-compose.prod.yml up   # Produção
+docker-compose down                            # Parar containers
+```
+
+## Considerações Finais
+
+- Manter consistência entre frontend e backend
+- Seguir padrões estabelecidos
+- Documentar decisões arquiteturais
+- Revisar e refatorar regularmente
+- Priorizar simplicidade e clareza
+- **Sempre manter project_status.md atualizado**
+- **Sempre atualizar tasks.md conforme execução**
+- **Sempre respeitar requisitos do prd.md** 
