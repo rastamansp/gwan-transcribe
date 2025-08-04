@@ -5,8 +5,6 @@ import { TerminusModule } from '@nestjs/terminus';
 import { BullModule } from '@nestjs/bull';
 import { ScheduleModule } from '@nestjs/schedule';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 
 // Configurações
 import {
@@ -21,9 +19,13 @@ import {
   otpConfig,
   fileUploadConfig,
 } from './infrastructure/config/app.config';
+import { loggerConfig } from './infrastructure/config/logger.config';
 
-// Módulos da aplicação (serão criados posteriormente)
-// import { AuthModule } from './modules/auth/auth.module';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+
+// Módulos da aplicação
+import { AuthModule } from './modules/auth/auth.module';
 // import { UserModule } from './modules/user/user.module';
 // import { TranscriptionModule } from './modules/transcription/transcription.module';
 // import { FileModule } from './modules/file/file.module';
@@ -80,8 +82,8 @@ import {
     TerminusModule,
     ScheduleModule.forRoot(),
 
-    // Módulos da aplicação (serão descomentados conforme implementação)
-    // AuthModule,
+    // Módulos da aplicação
+    AuthModule,
     // UserModule,
     // TranscriptionModule,
     // FileModule,

@@ -98,20 +98,20 @@ Sistema web que permite aos usuários fazer upload de arquivos de áudio para tr
 |--------|-----------|-------------|--------|------------|------------|
 | T2.4.1 | Escolher e configurar ORM | Dev | 🟢 Concluído | Alta | 3h |
 | T2.4.2 | Configurar conexão com banco | Dev | 🟢 Concluído | Alta | 2h |
-| T2.4.3 | Criar migrations iniciais | Dev | 🔴 Não Iniciado | Alta | 2h |
-| T2.4.4 | Implementar repositories | Dev | 🔴 Não Iniciado | Alta | 4h |
+| T2.4.3 | Criar migrations iniciais | Dev | 🟢 Concluído | Alta | 2h |
+| T2.4.4 | Implementar repositories | Dev | 🟢 Concluído | Alta | 4h |
 
 ### 2.5 Módulo de Autenticação OTP
 
 | Tarefa | Descrição | Responsável | Status | Prioridade | Estimativa |
 |--------|-----------|-------------|--------|------------|------------|
-| T2.5.1 | Criar entidade User | Dev | 🔴 Não Iniciado | Alta | 2h |
-| T2.5.2 | Implementar Use Cases de autenticação OTP | Dev | 🔴 Não Iniciado | Alta | 6h |
-| T2.5.3 | Implementar envio de email OTP | Dev | 🔴 Não Iniciado | Alta | 4h |
-| T2.5.4 | Criar DTOs de autenticação OTP | Dev | 🔴 Não Iniciado | Média | 2h |
-| T2.5.5 | Implementar AuthController com OTP | Dev | 🔴 Não Iniciado | Alta | 4h |
-| T2.5.6 | Configurar expiração de 30min para OTP | Dev | 🔴 Não Iniciado | Alta | 2h |
-| T2.5.7 | Implementar limite de 3 tentativas | Dev | 🔴 Não Iniciado | Alta | 2h |
+| T2.5.1 | Criar entidade User | Dev | 🟢 Concluído | Alta | 2h |
+| T2.5.2 | Implementar Use Cases de autenticação OTP | Dev | 🟢 Concluído | Alta | 6h |
+| T2.5.3 | Implementar envio de email OTP | Dev | 🟢 Concluído | Alta | 4h |
+| T2.5.4 | Criar DTOs de autenticação OTP | Dev | 🟢 Concluído | Média | 2h |
+| T2.5.5 | Implementar AuthController com OTP | Dev | 🟢 Concluído | Alta | 4h |
+| T2.5.6 | Configurar expiração de 30min para OTP | Dev | 🟢 Concluído | Alta | 2h |
+| T2.5.7 | Implementar limite de 3 tentativas | Dev | 🟢 Concluído | Alta | 2h |
 
 ### 2.6 Módulo de Usuários
 
@@ -364,15 +364,15 @@ Sistema web que permite aos usuários fazer upload de arquivos de áudio para tr
 
 ### Total de Tarefas: 105
 
-- **Concluídas**: 15 (14.3%)
+- **Concluídas**: 22 (21.0%)
 - **Em Andamento**: 0 (0%)
-- **Não Iniciadas**: 90 (85.7%)
+- **Não Iniciadas**: 83 (79.0%)
 - **Bloqueadas**: 0 (0%)
 
 ### Estimativa Total: 450 horas
 
 - **Fase 1**: 15 horas (100% concluída)
-- **Fase 2**: 140 horas (25% concluída)
+- **Fase 2**: 140 horas (35% concluída)
 - **Fase 3**: 85 horas (0% concluída)
 - **Fase 4**: 100 horas (0% concluída)
 - **Fase 5**: 80 horas (0% concluída)
@@ -382,16 +382,17 @@ Sistema web que permite aos usuários fazer upload de arquivos de áudio para tr
 
 ### Esta Semana
 
-1. T2.5.1 - Criar entidade User
-2. T2.5.4 - Criar DTOs de autenticação OTP
-3. T2.5.2 - Implementar Use Cases de autenticação OTP
-4. T2.5.3 - Implementar envio de email OTP
+1. T2.6.1 - Implementar Use Cases de usuário
+2. T2.6.2 - Criar UserController
+3. T2.7.1 - Criar entidade Transcription
+4. T2.7.2 - Implementar Use Cases de transcrição
 
 ### Próximas 2 Semanas
 
-1. Completar módulo de autenticação (T2.5.x)
+1. ✅ Completar módulo de autenticação (T2.5.x)
 2. Implementar módulo de usuários (T2.6.x)
 3. Iniciar módulo de transcrição (T2.7.x)
+4. Configurar MinIO para storage (T2.9.x)
 
 ## Status Atual do Sistema
 
@@ -402,10 +403,13 @@ Sistema web que permite aos usuários fazer upload de arquivos de áudio para tr
 - **Health Check**: `GET /api/v1/health` funcionando
 - **Endpoint Principal**: `GET /api/v1` funcionando
 - **Configurações**: CORS, Helmet, Compressão, Validação
+- **Autenticação OTP**: `POST /api/v1/auth/request-otp` e `POST /api/v1/auth/verify-otp` funcionando
+- **Sistema de Logging**: Winston estruturado implementado
+- **SharedModule**: Serviços compartilhados funcionando
 
 ### 🔄 Próximo Passo
 
-Implementar módulo de autenticação OTP para permitir login de usuários.
+Implementar módulo de usuários e transcrição para expandir funcionalidades do sistema.
 
 ## Notas Importantes
 
@@ -419,4 +423,4 @@ Implementar módulo de autenticação OTP para permitir login de usuários.
 ---
 
 **Última atualização**: Janeiro 2025
-**Próxima revisão**: Após implementação do módulo de autenticação
+**Próxima revisão**: Após implementação do módulo de transcrição

@@ -37,9 +37,9 @@ export const rabbitMQConfig = registerAs('rabbitMQ', () => ({
 export const emailConfig = registerAs('email', () => ({
   host: process.env.EMAIL_HOST || 'smtp.gmail.com',
   port: parseInt(process.env.EMAIL_PORT || '587', 10) || 587,
-  user: process.env.EMAIL_USER || '',
-  pass: process.env.EMAIL_PASS || '',
-  from: process.env.EMAIL_FROM || 'noreply@gwan.br',
+  user: process.env.SMTP_USER || '',
+  pass: process.env.SMTP_PASSWORD || '',
+  from: process.env.SMTP_FROM_EMAIL || 'noreply@gwan.br',
 }));
 
 export const jwtConfig = registerAs('jwt', () => ({
@@ -48,7 +48,7 @@ export const jwtConfig = registerAs('jwt', () => ({
 }));
 
 export const otpConfig = registerAs('otp', () => ({
-  expiresIn: process.env.OTP_EXPIRES_IN || '30m',
+  expiresIn: parseInt(process.env.OTP_EXPIRES_IN || '30', 10) || 30,
   maxAttempts: parseInt(process.env.OTP_MAX_ATTEMPTS || '3', 10) || 3,
   length: parseInt(process.env.OTP_LENGTH || '6', 10) || 6,
 }));

@@ -58,6 +58,14 @@ Sistema web que permite aos usuários fazer upload de arquivos de áudio para tr
 - [x] **Configuração de segurança (Helmet, CORS)** ✅
 - [x] **Validação global configurada** ✅
 - [x] **Compressão habilitada** ✅
+- [x] **Módulo de Autenticação OTP implementado** ✅
+- [x] **Sistema de email funcionando** ✅
+- [x] **Geração de tokens JWT** ✅
+- [x] **Validação de códigos OTP** ✅
+- [x] **Sistema de logging estruturado implementado** ✅
+- [x] **SharedModule criado para serviços compartilhados** ✅
+- [x] **Injeção de dependência corrigida** ✅
+- [x] **Logging em todos os Use Cases** ✅
 
 ### 🔄 Em Andamento
 
@@ -84,11 +92,21 @@ Sistema web que permite aos usuários fazer upload de arquivos de áudio para tr
 - **Endpoint Principal**: `GET /api/v1` ✅
   - Retorna: `"Hello World!"`
 
+- **Request OTP**: `POST /api/v1/auth/request-otp` ✅
+  - Body: `{"email":"user@example.com","name":"User Name"}`
+  - Gera código OTP e envia email
+  - Resposta: `{"success":true,"message":"Código enviado","debugCode":"123456"}`
+
+- **Verify OTP**: `POST /api/v1/auth/verify-otp` ✅
+  - Body: `{"email":"user@example.com","code":"123456"}`
+  - Valida código e gera token JWT
+  - Resposta: `{"success":true,"message":"Login realizado","token":"jwt_token","user":{"id":"uuid","email":"user@example.com","name":"User Name"}}`
+
 ## Módulos Planejados
 
 ### Backend (NestJS)
 
-- [ ] **Auth Module**: Autenticação OTP via email (30min expiração, 3 tentativas)
+- [x] **Auth Module**: Autenticação OTP via email (30min expiração, 3 tentativas) ✅
 - [ ] **User Module**: Gestão de usuários e sessões
 - [ ] **Transcription Module**: Integração com Azure OpenAI para transcrição
 - [ ] **File Module**: Upload para MinIO bucket e gestão de arquivos
@@ -147,20 +165,23 @@ Sistema web que permite aos usuários fazer upload de arquivos de áudio para tr
 
 ## Métricas de Progresso
 
-### Estrutura (80%)
+### Estrutura (85%)
 
 - [x] Documentação (100%)
 - [x] Configuração de ambiente (100%)
 - [x] Estrutura de pastas (100%)
 - [x] Backend funcionando (100%)
+- [x] Sistema de logging (100%)
 
-### Backend (50%)
+### Backend (60%)
 
 - [x] Setup inicial (100%)
 - [x] Servidor rodando (100%)
 - [x] Conexão com banco (100%)
 - [x] Endpoints básicos (100%)
-- [ ] Módulos básicos (0%)
+- [x] Módulo de autenticação (100%)
+- [x] Sistema de logging (100%)
+- [ ] Outros módulos (0%)
 - [ ] APIs principais (0%)
 
 ### Frontend (0%)
@@ -181,9 +202,10 @@ Sistema web que permite aos usuários fazer upload de arquivos de áudio para tr
 ### Fase 1: Backend Core (Prioridade Alta)
 
 1. ✅ Configurar banco de dados PostgreSQL
-2. [ ] Implementar módulo de autenticação OTP
-3. [ ] Implementar entidades e repositories
-4. [ ] Configurar validação e error handling
+2. ✅ Implementar módulo de autenticação OTP
+3. ✅ Implementar entidades e repositories
+4. ✅ Configurar validação e error handling
+5. ✅ Implementar sistema de logging estruturado
 
 ### Fase 2: Módulos Core (Prioridade Alta)
 
@@ -191,6 +213,7 @@ Sistema web que permite aos usuários fazer upload de arquivos de áudio para tr
 2. [ ] Configurar MinIO para storage
 3. [ ] Implementar sistema de filas
 4. [ ] Configurar integração Azure OpenAI
+5. [ ] Implementar módulo de usuários
 
 ### Fase 3: Frontend Setup (Prioridade Média)
 
@@ -241,6 +264,9 @@ Sistema web que permite aos usuários fazer upload de arquivos de áudio para tr
 - Helmet para segurança ✅
 - CORS configurado ✅
 - Compressão habilitada ✅
+- Sistema de logging estruturado (Winston) ✅
+- SharedModule para serviços compartilhados ✅
+- Injeção de dependência otimizada ✅
 
 ### Pendentes
 
@@ -289,4 +315,4 @@ curl http://localhost:3000/api/v1
 ---
 
 **Última atualização**: Janeiro 2025
-**Próxima revisão**: Após implementação do primeiro módulo (Auth)
+**Próxima revisão**: Após implementação do módulo de transcrição

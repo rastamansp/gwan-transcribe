@@ -154,6 +154,7 @@ src/modules/user/
 
 ### Código
 - Evitar duplicação de código
+- **IMPORTANTE**: Usar biblioteca de logging estruturado (Winston, Pino) ao invés de console.log
 - Implementar logging estruturado
 - Usar environment variables
 - Implementar error handling robusto
