@@ -1,0 +1,266 @@
+### Gwan Transcribe - HTTP Tests
+### Backend API Testing
+
+@baseUrl = http://localhost:3000/api/v1
+@contentType = application/json
+
+### ========================================
+### HEALTH CHECK & STATUS
+### ========================================
+
+### Health Check
+GET {{baseUrl}}/health
+Content-Type: {{contentType}}
+
+### Endpoint Principal
+GET {{baseUrl}}
+Content-Type: {{contentType}}
+
+### ========================================
+### AUTENTICAÇÃO OTP
+### ========================================
+
+### Request OTP - Sucesso
+POST {{baseUrl}}/auth/request-otp
+Content-Type: {{contentType}}
+
+{
+  "email": "teste@example.com",
+  "name": "Usuário Teste"
+}
+
+### Request OTP - Email inválido
+POST {{baseUrl}}/auth/request-otp
+Content-Type: {{contentType}}
+
+{
+  "email": "email-invalido",
+  "name": "Usuário Teste"
+}
+
+### Request OTP - Sem nome
+POST {{baseUrl}}/auth/request-otp
+Content-Type: {{contentType}}
+
+{
+  "email": "teste@example.com"
+}
+
+### Request OTP - Email vazio
+POST {{baseUrl}}/auth/request-otp
+Content-Type: {{contentType}}
+
+{
+  "email": "",
+  "name": "Usuário Teste"
+}
+
+### Verify OTP - Sucesso (usar código retornado do request-otp)
+POST {{baseUrl}}/auth/verify-otp
+Content-Type: {{contentType}}
+
+{
+  "email": "teste@example.com",
+  "code": "123456"
+}
+
+### Verify OTP - Código inválido
+POST {{baseUrl}}/auth/verify-otp
+Content-Type: {{contentType}}
+
+{
+  "email": "teste@example.com",
+  "code": "000000"
+}
+
+### Verify OTP - Email não encontrado
+POST {{baseUrl}}/auth/verify-otp
+Content-Type: {{contentType}}
+
+{
+  "email": "nao-existe@example.com",
+  "code": "123456"
+}
+
+### Verify OTP - Código vazio
+POST {{baseUrl}}/auth/verify-otp
+Content-Type: {{contentType}}
+
+{
+  "email": "teste@example.com",
+  "code": ""
+}
+
+### ========================================
+### TESTES DE STRESS
+### ========================================
+
+### Múltiplas tentativas de request OTP
+POST {{baseUrl}}/auth/request-otp
+Content-Type: {{contentType}}
+
+{
+  "email": "stress@example.com",
+  "name": "Teste Stress"
+}
+
+### Múltiplas tentativas de verify OTP
+POST {{baseUrl}}/auth/verify-otp
+Content-Type: {{contentType}}
+
+{
+  "email": "stress@example.com",
+  "code": "111111"
+}
+
+### ========================================
+### TESTES DE VALIDAÇÃO
+### ========================================
+
+### Request OTP - Email muito longo
+POST {{baseUrl}}/auth/request-otp
+Content-Type: {{contentType}}
+
+{
+  "email": "email-muito-longo-que-excede-o-limite-maximo-permitido-pela-validacao@example.com",
+  "name": "Usuário Teste"
+}
+
+### Request OTP - Nome muito longo
+POST {{baseUrl}}/auth/request-otp
+Content-Type: {{contentType}}
+
+{
+  "email": "teste@example.com",
+  "name": "Nome muito longo que pode exceder o limite máximo permitido pela validação do sistema"
+}
+
+### Request OTP - Caracteres especiais
+POST {{baseUrl}}/auth/request-otp
+Content-Type: {{contentType}}
+
+{
+  "email": "teste+especial@example.com",
+  "name": "Usuário com Ççããõõ"
+}
+
+### ========================================
+### TESTES DE PERFORMANCE
+### ========================================
+
+### Request OTP - Múltiplos usuários simultâneos
+POST {{baseUrl}}/auth/request-otp
+Content-Type: {{contentType}}
+
+{
+  "email": "user1@example.com",
+  "name": "Usuário 1"
+}
+
+###
+
+POST {{baseUrl}}/auth/request-otp
+Content-Type: {{contentType}}
+
+{
+  "email": "user2@example.com",
+  "name": "Usuário 2"
+}
+
+###
+
+POST {{baseUrl}}/auth/request-otp
+Content-Type: {{contentType}}
+
+{
+  "email": "user3@example.com",
+  "name": "Usuário 3"
+}
+
+### ========================================
+### TESTES DE SEGURANÇA
+### ========================================
+
+### Request OTP - SQL Injection attempt
+POST {{baseUrl}}/auth/request-otp
+Content-Type: {{contentType}}
+
+{
+  "email": "test'; DROP TABLE users; --@example.com",
+  "name": "SQL Injection"
+}
+
+### Request OTP - XSS attempt
+POST {{baseUrl}}/auth/request-otp
+Content-Type: {{contentType}}
+
+{
+  "email": "teste@example.com",
+  "name": "<script>alert('XSS')</script>"
+}
+
+### ========================================
+### TESTES DE CONFIGURAÇÃO
+### ========================================
+
+### Teste com Content-Type diferente
+POST {{baseUrl}}/auth/request-otp
+Content-Type: text/plain
+
+{
+  "email": "teste@example.com",
+  "name": "Usuário Teste"
+}
+
+### Teste sem Content-Type
+POST {{baseUrl}}/auth/request-otp
+
+{
+  "email": "teste@example.com",
+  "name": "Usuário Teste"
+}
+
+### ========================================
+### TESTES DE ENDPOINTS INEXISTENTES
+### ========================================
+
+### Endpoint inexistente
+GET {{baseUrl}}/endpoint-inexistente
+Content-Type: {{contentType}}
+
+### Método não permitido
+PUT {{baseUrl}}/auth/request-otp
+Content-Type: {{contentType}}
+
+{
+  "email": "teste@example.com",
+  "name": "Usuário Teste"
+}
+
+### ========================================
+### INSTRUÇÕES DE USO
+### ========================================
+
+### Como usar este arquivo:
+### 1. Instale a extensão "REST Client" no VS Code
+### 2. Abra este arquivo
+### 3. Clique em "Send Request" acima de cada requisição
+### 4. Verifique as respostas no painel de saída
+### 5. Use os códigos OTP retornados para testar verify-otp
+
+### Dicas:
+### - Execute os testes na ordem apresentada
+### - Verifique os logs do backend durante os testes
+### - Monitore o banco de dados para verificar as inserções
+### - Teste diferentes cenários de erro
+### - Verifique se o sistema de logging está funcionando
+
+### ========================================
+### VARIÁVEIS DE AMBIENTE (se necessário)
+### ========================================
+
+### Para testar em ambiente diferente, altere a variável @baseUrl:
+### @baseUrl = https://api.transcribe.gwan.br/api/v1
+
+### Para testar com autenticação (quando implementado):
+### @authToken = seu-jwt-token-aqui 
