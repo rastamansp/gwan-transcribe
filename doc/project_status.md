@@ -10,9 +10,28 @@ Sistema web que permite aos usuários fazer upload de arquivos de áudio para tr
 
 ## Status Atual
 
-- **Fase**: Configuração Inicial
-- **Data**: Dezembro 2024
+- **Fase**: Backend Funcionando - Frontend Pendente
+- **Data**: Janeiro 2025
 - **Versão**: 0.1.0
+- **Node.js**: 20.11.0 ✅
+- **pnpm**: 10.14.0 ✅
+- **Backend**: Rodando em http://localhost:3000 ✅
+- **Banco de Dados**: PostgreSQL conectado ✅
+
+## Decisões de Implementação
+
+### Ambiente de Desenvolvimento
+- **Desenvolvimento**: Direto no sistema (não Docker)
+- **Banco de Dados**: PostgreSQL remoto via .env ✅
+- **Dependências Externas**: Variáveis do .env configuradas ✅
+- **Estrutura**: Monorepo completo com pnpm workspaces ✅
+
+### Configuração de Ambiente
+- **Node.js**: 20.11.0 (LTS) ✅
+- **Package Manager**: pnpm 10.14.0 ✅
+- **TypeScript**: Strict mode ✅
+- **Backend**: NestJS com Clean Architecture ✅
+- **Frontend**: React 18 com Vite (pendente)
 
 ## Estrutura Implementada
 
@@ -23,24 +42,47 @@ Sistema web que permite aos usuários fazer upload de arquivos de áudio para tr
 - [x] Estrutura de documentação (/doc)
 - [x] Definição da arquitetura Clean Architecture
 - [x] Padrões SOLID estabelecidos
+- [x] Instalação do Node.js 20.11.0
+- [x] Instalação do pnpm 10.14.0
+- [x] Configuração do monorepo (package.json workspace)
+- [x] Criação da estrutura de pastas do backend
+- [x] Setup do projeto NestJS
+- [x] Configuração do TypeScript strict mode
+- [x] Configuração das dependências do backend
+- [x] Estrutura Clean Architecture implementada
+- [x] Configuração de variáveis de ambiente
+- [x] Health check endpoints
+- [x] **Backend rodando com sucesso** ✅
+- [x] **Conexão com PostgreSQL estabelecida** ✅
+- [x] **Endpoints funcionando** ✅
+- [x] **Configuração de segurança (Helmet, CORS)** ✅
+- [x] **Validação global configurada** ✅
+- [x] **Compressão habilitada** ✅
 
 ### 🔄 Em Andamento
 
-- [ ] Configuração do monorepo (package.json workspace)
-- [ ] Setup do backend NestJS
+- [ ] Implementação dos módulos do backend
 - [ ] Setup do frontend React
-- [ ] Configuração do TypeScript
-- [ ] Estrutura de pastas completa
+- [ ] Implementação de autenticação
 
 ### ⏳ Pendente
 
-- [ ] Implementação dos módulos do backend
 - [ ] Desenvolvimento dos componentes do frontend
-- [ ] Configuração de banco de dados
 - [ ] Implementação de autenticação
 - [ ] Deploy e configuração de ambientes
 - [ ] Documentação de APIs
 - [ ] Guias de deploy
+
+## Endpoints Funcionando
+
+### ✅ Backend (http://localhost:3000)
+
+- **Health Check**: `GET /api/v1/health` ✅
+  - Retorna status do banco de dados
+  - Resposta: `{"status":"ok","info":{"database":{"status":"up"}},"error":{},"details":{"database":{"status":"up"}}}`
+
+- **Endpoint Principal**: `GET /api/v1` ✅
+  - Retorna: `"Hello World!"`
 
 ## Módulos Planejados
 
@@ -69,12 +111,12 @@ Sistema web que permite aos usuários fazer upload de arquivos de áudio para tr
 
 ### Backend
 
-- **Framework**: NestJS
-- **Language**: TypeScript
-- **Database**: PostgreSQL
-- **ORM**: TypeORM
+- **Framework**: NestJS ✅
+- **Language**: TypeScript ✅
+- **Database**: PostgreSQL ✅
+- **ORM**: TypeORM ✅
 - **Authentication**: OTP via email (30min, 3 tentativas)
-- **Validation**: class-validator
+- **Validation**: class-validator ✅
 - **Transcription**: Azure OpenAI
 - **Translation**: OpenAI
 - **Storage**: MinIO bucket
@@ -95,28 +137,31 @@ Sistema web que permite aos usuários fazer upload de arquivos de áudio para tr
 
 ### Ferramentas
 
-- **Package Manager**: pnpm (workspaces)
+- **Package Manager**: pnpm (workspaces) ✅
 - **Linting**: ESLint + Prettier
 - **Git Hooks**: Husky
-- **Type Checking**: TypeScript strict mode
+- **Type Checking**: TypeScript strict mode ✅
 - **Containerização**: Docker
 - **Orquestração**: Portainer
 - **Sistema de Filas**: RabbitMQ
 
 ## Métricas de Progresso
 
-### Estrutura (20%)
+### Estrutura (80%)
 
 - [x] Documentação (100%)
-- [ ] Configuração de ambiente (0%)
-- [ ] Estrutura de pastas (0%)
+- [x] Configuração de ambiente (100%)
+- [x] Estrutura de pastas (100%)
+- [x] Backend funcionando (100%)
 
-### Backend (0%)
+### Backend (50%)
 
-- [ ] Setup inicial (0%)
+- [x] Setup inicial (100%)
+- [x] Servidor rodando (100%)
+- [x] Conexão com banco (100%)
+- [x] Endpoints básicos (100%)
 - [ ] Módulos básicos (0%)
 - [ ] APIs principais (0%)
-- [ ] Integração com banco (0%)
 
 ### Frontend (0%)
 
@@ -133,41 +178,40 @@ Sistema web que permite aos usuários fazer upload de arquivos de áudio para tr
 
 ## Próximos Passos
 
-### Fase 1: Configuração (Prioridade Alta)
+### Fase 1: Backend Core (Prioridade Alta)
 
-1. Configurar workspace npm
-2. Setup do backend NestJS
-3. Setup do frontend React
-4. Configuração do TypeScript
-5. Estrutura de pastas completa
+1. ✅ Configurar banco de dados PostgreSQL
+2. [ ] Implementar módulo de autenticação OTP
+3. [ ] Implementar entidades e repositories
+4. [ ] Configurar validação e error handling
 
-### Fase 2: Backend Básico (Prioridade Alta)
+### Fase 2: Módulos Core (Prioridade Alta)
 
-1. Implementar módulo de autenticação
-2. Configurar banco de dados
-3. Implementar CRUD básico
-4. Configurar validação e error handling
+1. [ ] Implementar módulo de transcrição
+2. [ ] Configurar MinIO para storage
+3. [ ] Implementar sistema de filas
+4. [ ] Configurar integração Azure OpenAI
 
-### Fase 3: Frontend Básico (Prioridade Média)
+### Fase 3: Frontend Setup (Prioridade Média)
 
-1. Implementar componentes de autenticação
-2. Criar layout básico
-3. Integrar com APIs do backend
-4. Implementar navegação
+1. [ ] Criar projeto React com Vite
+2. [ ] Implementar componentes de autenticação
+3. [ ] Criar layout básico
+4. [ ] Integrar com APIs do backend
 
 ### Fase 4: Funcionalidades Core (Prioridade Média)
 
-1. Implementar funcionalidades de transcrição
-2. Upload de arquivos
-3. Gestão de usuários
-4. Dashboard principal
+1. [ ] Implementar funcionalidades de transcrição
+2. [ ] Upload de arquivos
+3. [ ] Gestão de usuários
+4. [ ] Dashboard principal
 
 ### Fase 5: Polimento (Prioridade Baixa)
 
-1. Otimizações de performance
-2. Melhorias de UX/UI
-3. Documentação completa
-4. Deploy em produção
+1. [ ] Otimizações de performance
+2. [ ] Melhorias de UX/UI
+3. [ ] Documentação completa
+4. [ ] Deploy em produção
 
 ## Riscos e Desafios
 
@@ -187,11 +231,16 @@ Sistema web que permite aos usuários fazer upload de arquivos de áudio para tr
 
 ### Implementadas
 
-- Clean Architecture para backend
-- SOLID principles como base
-- Use Cases pattern
-- Monorepo com npm workspaces
-- TypeScript strict mode
+- Clean Architecture para backend ✅
+- SOLID principles como base ✅
+- Use Cases pattern ✅
+- Monorepo com pnpm workspaces ✅
+- TypeScript strict mode ✅
+- NestJS com configuração completa ✅
+- PostgreSQL como banco principal ✅
+- Helmet para segurança ✅
+- CORS configurado ✅
+- Compressão habilitada ✅
 
 ### Pendentes
 
@@ -200,6 +249,34 @@ Sistema web que permite aos usuários fazer upload de arquivos de áudio para tr
 - Estratégia de deploy
 - Estratégia de cache
 
+## Comandos Úteis
+
+### Desenvolvimento
+
+```bash
+# Rodar backend
+pnpm run dev
+
+# Rodar apenas backend
+pnpm run dev:backend
+
+# Build do projeto
+pnpm run build
+
+# Limpar builds
+pnpm run clean
+```
+
+### Testes
+
+```bash
+# Testar health check
+curl http://localhost:3000/api/v1/health
+
+# Testar endpoint principal
+curl http://localhost:3000/api/v1
+```
+
 ## Notas Importantes
 
 - **Não implementar testes unitários** conforme especificação
@@ -207,8 +284,9 @@ Sistema web que permite aos usuários fazer upload de arquivos de áudio para tr
 - Priorizar simplicidade e clareza
 - Documentar decisões arquiteturais
 - Seguir padrões estabelecidos no .cursorrules
+- **Backend está funcionando e pronto para desenvolvimento de módulos**
 
 ---
 
-**Última atualização**: Dezembro 2024
-**Próxima revisão**: Após conclusão da Fase 1
+**Última atualização**: Janeiro 2025
+**Próxima revisão**: Após implementação do primeiro módulo (Auth)

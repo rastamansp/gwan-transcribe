@@ -104,22 +104,31 @@ Sistema web de transcrição de áudio com autenticação OTP via email, permiti
 - **Frontend**: React 18 + TypeScript + Vite
 - **Database**: PostgreSQL + TypeORM
 - **Storage**: MinIO bucket
-- **Transcrição**: OpenAI
+- **Transcrição**: Azure OpenAI
 - **Tradução**: OpenAI
 - **Filas**: RabbitMQ
 - **Package Manager**: pnpm
-- **Containerização**: Docker
-- **Orquestração**: Portainer
+- **Containerização**: Docker (apenas para produção)
+- **Orquestração**: Portainer (apenas para produção)
 
-#### 4.2 Infraestrutura
+#### 4.2 Ambiente de Desenvolvimento
+
+- **Desenvolvimento**: Direto no sistema (não Docker)
+- **Banco de Dados**: PostgreSQL local via .env
+- **Dependências Externas**: Variáveis do .env (Azure OpenAI já configuradas)
+- **Estrutura**: Monorepo completo com pnpm workspaces
+- **Node.js**: 20.11.0 (LTS)
+- **Package Manager**: pnpm 10.14.0
+
+#### 4.3 Infraestrutura
 
 - **API**: api.transcribe.gwan.br
 - **Frontend**: transcribe.gwan.br
-- **Ambiente**: Servidor Portainer
-- **Dev**: Docker Compose
+- **Ambiente**: Servidor Portainer (apenas produção)
+- **Dev**: Desenvolvimento local
 - **Prod**: Docker Swarm/Kubernetes
 
-#### 4.3 Padrões Arquiteturais
+#### 4.4 Padrões Arquiteturais
 
 - **Clean Architecture** para backend
 - **SOLID Principles** como base

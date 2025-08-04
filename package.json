@@ -1,0 +1,54 @@
+{
+  "name": "gwan-transcribe",
+  "version": "0.1.0",
+  "description": "Sistema de transcrição de áudio com autenticação OTP via email",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "pnpm run --parallel dev",
+    "dev:backend": "pnpm --filter backend run dev",
+    "dev:frontend": "pnpm --filter frontend run dev",
+    "build": "pnpm run --recursive build",
+    "build:backend": "pnpm --filter backend run build",
+    "build:frontend": "pnpm --filter frontend run build",
+    "clean": "pnpm run --recursive clean",
+    "lint": "pnpm run --recursive lint",
+    "lint:fix": "pnpm run --recursive lint:fix",
+    "type-check": "pnpm run --recursive type-check"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "eslint": "^8.56.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=20.11.0",
+    "pnpm": ">=10.14.0"
+  },
+  "packageManager": "pnpm@10.14.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/gwan-transcribe.git"
+  },
+  "keywords": [
+    "transcription",
+    "audio",
+    "otp",
+    "nestjs",
+    "react",
+    "typescript",
+    "clean-architecture"
+  ],
+  "author": "Gwan Team",
+  "license": "MIT",
+  "dependencies": {
+    "@nestjs/cli": "^11.0.10"
+  }
+}
