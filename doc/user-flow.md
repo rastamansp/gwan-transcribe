@@ -11,6 +11,7 @@ Este documento descreve o fluxo completo do usuário no sistema de transcrição
 - **URL**: `https://transcribe.gwan.br`
 - **Ação**: Usuário acessa a página inicial
 - **Interface**: Tela de login com campo de email
+- **Idioma**: Português (padrão) com opção de alterar para Inglês
 
 ### 2. Solicitação de OTP
 
@@ -29,7 +30,7 @@ Este documento descreve o fluxo completo do usuário no sistema de transcrição
   - Valida código OTP
   - Verifica expiração (30min)
   - Conta tentativas (máximo 3)
-  - Cria sessão do usuário
+  - Cria sessão do usuário com JWT
 - **Interface**:
   - Timer de expiração visível
   - Contador de tentativas restantes
@@ -37,71 +38,77 @@ Este documento descreve o fluxo completo do usuário no sistema de transcrição
 
 ## Fluxo de Transcrição
 
-### 1. Dashboard Principal
+### 1. Página de Conteúdo
 
 - **Acesso**: Após autenticação bem-sucedida
 - **Interface**:
-  - Área de upload de áudio
-  - Seletor de idioma (inglês/português)
-  - Lista de transcrições anteriores
-  - Menu de navegação
+  - Texto descritivo do serviço
+  - Botão para upload de arquivo de áudio
+  - Seletor de idioma (Português/Inglês)
+  - Botão de logout
 
 ### 2. Upload de Áudio
 
 - **Ação**: Usuário seleciona arquivo de áudio
-- **Formatos Aceitos**: MP3, WAV, M4A, AAC, FLAC, etc.
-- **Limite**: Sem limite de tamanho
+- **Formatos Aceitos**: MP3, WAV, M4A, AAC, FLAC
+- **Limite**: Máximo 20MB por arquivo
 - **Interface**:
   - Drag & drop ou botão de seleção
   - Preview do arquivo selecionado
   - Barra de progresso do upload
+  - Validação de tamanho e formato
 
-### 3. Processamento
+### 3. Processamento Assíncrono
 
 - **Backend**:
   - Upload para MinIO bucket
-  - Envio para Azure OpenAI
-  - Detecção automática de idioma
-  - Transcrição do áudio
-  - Tradução (se necessário)
-  - Armazenamento do resultado
+  - Envio para fila RabbitMQ
+  - Processamento em background
+  - Status atualizado em tempo real
 - **Interface**:
-  - Indicador de processamento
-  - Status em tempo real
-  - Não exibe progresso detalhado
+  - Indicador de processamento em tempo real
+  - Progresso detalhado (detecção → transcrição → tradução)
+  - Atualização automática de status
 
-### 4. Resultado
+### 4. Status de Processamento
 
+- **Estágios**:
+  1. **Upload**: Arquivo sendo enviado
+  2. **Detecção**: Detectando idioma do áudio
+  3. **Transcrição**: Processando com OpenAI Whisper (modelo base)
+  4. **Tradução**: Traduzindo se necessário (OpenAI GPT)
+  5. **Concluído**: Processamento finalizado
+
+### 5. Notificação e Resultado
+
+- **Email**: Sistema envia notificação por email quando processamento termina
 - **Interface**:
   - Exibe transcrição completa
   - Mostra idioma detectado
   - Exibe tradução (se aplicável)
   - URL do arquivo original
-  - Botões de ação (copiar, baixar, compartilhar)
+  - Botões de ação (copiar, baixar, traduzir)
 
-## Funcionalidades Adicionais
+## Funcionalidades de Interface
 
-### Histórico de Transcrições
+### Internacionalização
 
-- **Acesso**: Menu lateral ou botão "Histórico"
-- **Interface**:
-  - Lista paginada de transcrições
-  - Filtros por data
-  - Busca por conteúdo
-  - Detalhes de cada transcrição
+- **Idiomas Suportados**: Português (pt-BR) e Inglês (en-US)
+- **Interface**: Bandeiras EUA e Brasil para alternar idioma
+- **Arquivo**: JSON com traduções para ambos os idiomas
+- **Padrão**: Português como idioma padrão
 
-### Detalhes da Transcrição
+### Modo Visual
 
-- **Informações Exibidas**:
-  - Data e hora do processamento
-  - Nome do arquivo original
-  - Tamanho do arquivo
-  - Duração do áudio
-  - Idioma detectado
-  - Idioma selecionado
-  - Transcrição completa
-  - Tradução (se aplicável)
-  - URL do arquivo original
+- **Tema**: Apenas modo claro (sem modo escuro)
+- **Cores**: Paleta de cores consistente
+- **Material-UI**: Componentes padronizados
+
+### Responsividade
+
+- **Desktop**: Layout completo com sidebar
+- **Mobile**: Layout adaptado para touch
+- **Tablet**: Layout intermediário
 
 ## Estados de Erro
 
@@ -110,69 +117,83 @@ Este documento descreve o fluxo completo do usuário no sistema de transcrição
 - **Email inválido**: Mensagem de erro específica
 - **OTP expirado**: Solicitar novo código
 - **Tentativas esgotadas**: Bloquear por 1 hora
-- **Email não encontrado**: Criar novo usuário automaticamente
 
 ### Upload
 
 - **Formato não suportado**: Mensagem de erro com formatos aceitos
+- **Arquivo muito grande**: Mensagem de limite de 20MB
 - **Arquivo corrompido**: Mensagem de erro específica
 - **Falha no upload**: Retry automático
 
 ### Processamento
 
 - **Falha na transcrição**: Mensagem de erro e opção de retry
-- **Timeout**: Notificação de processamento longo
+- **Timeout**: Notificação de processamento longo (máximo 3 minutos)
 - **Serviço indisponível**: Mensagem de manutenção
+- **Erro OpenAI**: Mensagem de erro da API
 
-## Responsividade
+## Segurança
 
-### Desktop
+### Rate Limiting
 
-- Layout completo com sidebar
-- Upload com drag & drop
-- Visualização em colunas
+- **Autenticação**: 10 tentativas por minuto
+- **Upload**: 5 uploads por hora
+- **API**: 100 requisições por 15 minutos
 
-### Mobile
+### Proteção de Rotas
 
-- Layout adaptado para touch
-- Upload via botão
-- Visualização em cards
-- Navegação por tabs
-
-## Acessibilidade
-
-### Recursos
-
-- Navegação por teclado
-- Screen readers
-- Alto contraste
-- Tamanho de fonte ajustável
-- Descrições alt para imagens
-
-### Feedback
-
-- Mensagens de status claras
-- Indicadores visuais de progresso
-- Alertas sonoros opcionais
-- Confirmações de ações importantes
+- **JWT**: Token de autenticação
+- **Refresh**: Renovação automática de token
+- **Sanitização**: Validação de entrada robusta
 
 ## Performance
 
 ### Otimizações
 
-- Lazy loading de histórico
-- Cache de transcrições recentes
-- Compressão de áudio antes do upload
-- Paginação de resultados
+- **Upload**: Validação client-side
+- **Processamento**: Indicadores de progresso detalhado
+- **Interface**: Componentes otimizados
+- **Whisper**: Modelo base para melhor performance
 
 ### Métricas
 
-- Tempo de carregamento < 3s
-- Tempo de processamento < 30s
-- Disponibilidade > 99.9%
-- Taxa de erro < 1%
+- **Tempo de carregamento**: < 3s
+- **Tempo de processamento**: < 3min (para arquivos de 20MB)
+- **Disponibilidade**: > 99.9%
+- **Taxa de erro**: < 1%
+
+## Monitoramento de Custos
+
+### Logs Detalhados
+
+- **API Calls**: Registro de todas as chamadas para OpenAI
+- **Custos**: Rastreamento de custos por usuário/transcrição
+- **Budget**: Monitoramento do limite de R$ 100,00 mensal
+- **Alertas**: Notificações quando próximo do limite
+
+### Métricas de Uso
+
+- **Transcrições por dia**: Contagem de processamentos
+- **Custo por transcrição**: Média de custo por arquivo
+- **Uso por usuário**: Estatísticas individuais
+- **Tendências**: Análise de uso ao longo do tempo
+
+## Acessibilidade
+
+### Recursos Básicos
+
+- **Navegação**: Por teclado
+- **Contraste**: Alto contraste
+- **Fonte**: Tamanho ajustável
+
+### Feedback
+
+- **Mensagens**: Status claras
+- **Indicadores**: Visuais de progresso detalhado
+- **Confirmações**: Ações importantes
+- **Notificações**: Email quando processamento termina
 
 ---
 
 **Última atualização**: Agosto 2025
-**Versão**: 1.0
+**Versão**: 2.2

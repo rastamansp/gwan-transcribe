@@ -105,64 +105,76 @@
 - [ ] **9.1** Configurar projeto React com Vite
 - [ ] **9.2** Configurar TypeScript
 - [ ] **9.3** Configurar ESLint e Prettier
-- [ ] **9.4** Configurar roteamento (React Router)
-- [ ] **9.5** Configurar gerenciamento de estado
-- [ ] **9.6** Configurar HTTP client (Axios)
+- [ ] **9.4** Configurar Material-UI
+- [ ] **9.5** Configurar roteamento (React Router)
+- [ ] **9.6** Configurar gerenciamento de estado
+- [ ] **9.7** Configurar HTTP client (Axios)
+- [ ] **9.8** Configurar internacionalização (i18n)
 
 ### 10. Frontend - Componentes de Autenticação
 - [ ] **10.1** Implementar tela de login OTP
 - [ ] **10.2** Implementar validação de código OTP
-- [ ] **10.3** Implementar gerenciamento de token
-- [ ] **10.4** Implementar logout
-- [ ] **10.5** Implementar proteção de rotas
+- [ ] **10.3** Implementar gerenciamento de token JWT
+- [ ] **10.4** Implementar refresh automático de token
+- [ ] **10.5** Implementar logout
+- [ ] **10.6** Implementar proteção de rotas
 
 ### 11. Frontend - Interface Principal
 - [ ] **11.1** Implementar layout principal
-- [ ] **11.2** Implementar dashboard
-- [ ] **11.3** Implementar upload de arquivos
-- [ ] **11.4** Implementar seleção de idioma
-- [ ] **11.5** Implementar histórico de transcrições
+- [ ] **11.2** Implementar página de conteúdo
+- [ ] **11.3** Implementar upload de arquivos (limite 20MB)
+- [ ] **11.4** Implementar seletor de idioma (PT/EN)
+- [ ] **11.5** Implementar exibição de transcrição
+- [ ] **11.6** Implementar download de arquivos
+
+### 12. Frontend - Funcionalidades
+- [ ] **12.1** Implementar rate limiting client-side
+- [ ] **12.2** Implementar sanitização de dados
+- [ ] **12.3** Implementar validação de arquivos
+- [ ] **12.4** Implementar feedback de progresso
+- [ ] **12.5** Implementar tratamento de erros
 
 ## ⏳ Tarefas Pendentes
 
-### 12. Backend - Módulos Adicionais
-- [ ] **12.1** Implementar módulo de transcrição
-- [ ] **12.2** Implementar módulo de arquivos
-- [ ] **12.3** Implementar módulo de histórico
-- [ ] **12.4** Configurar MinIO para storage
-- [ ] **12.5** Configurar RabbitMQ para filas
-- [ ] **12.6** Integrar com Azure OpenAI
+### 13. Backend - Módulos Adicionais
+- [ ] **13.1** Implementar módulo de transcrição
+- [ ] **13.2** Implementar módulo de arquivos
+- [ ] **13.3** Configurar MinIO para storage
+- [ ] **13.4** Configurar RabbitMQ para filas
+- [ ] **13.5** Integrar com Azure OpenAI
+- [ ] **13.6** Implementar rate limiting no backend
 
-### 13. Infraestrutura
-- [ ] **13.1** Configurar Docker para desenvolvimento
-- [ ] **13.2** Configurar Docker para produção
-- [ ] **13.3** Configurar Portainer
-- [ ] **13.4** Configurar CI/CD
-- [ ] **13.5** Configurar monitoramento
+### 14. Infraestrutura
+- [ ] **14.1** Configurar Docker para desenvolvimento
+- [ ] **14.2** Configurar Docker para produção
+- [ ] **14.3** Configurar Portainer
+- [ ] **14.4** Configurar CI/CD
+- [ ] **14.5** Configurar monitoramento
 
-### 14. Deploy e Produção
-- [ ] **14.1** Configurar ambiente de staging
-- [ ] **14.2** Configurar ambiente de produção
-- [ ] **14.3** Configurar domínios
-- [ ] **14.4** Configurar SSL
-- [ ] **14.5** Configurar backup
+### 15. Deploy e Produção
+- [ ] **15.1** Configurar ambiente de staging
+- [ ] **15.2** Configurar ambiente de produção
+- [ ] **15.3** Configurar domínios
+- [ ] **15.4** Configurar SSL
+- [ ] **15.5** Configurar backup
 
-### 15. Documentação e Polimento
-- [ ] **15.1** Documentar APIs (Swagger)
-- [ ] **15.2** Criar guias de deploy
-- [ ] **15.3** Criar documentação de usuário
-- [ ] **15.4** Otimizar performance
-- [ ] **15.5** Implementar métricas
+### 16. Documentação e Polimento
+- [ ] **16.1** Documentar APIs (Swagger)
+- [ ] **16.2** Criar guias de deploy
+- [ ] **16.3** Criar documentação de usuário
+- [ ] **16.4** Otimizar performance
+- [ ] **16.5** Implementar métricas
 
 ## 🎯 Próximas Prioridades
 
 ### **Prioridade Alta (Sprint Atual)**
-1. **Frontend React**: Configurar projeto base
+1. **Frontend React**: Configurar projeto base com Material-UI
 2. **Componentes de Auth**: Implementar login OTP
-3. **Integração Backend**: Conectar APIs
+3. **Internacionalização**: Configurar PT/EN
+4. **Integração Backend**: Conectar APIs
 
 ### **Prioridade Média (Próximas Sprints)**
-1. **Interface Principal**: Dashboard e upload
+1. **Interface Principal**: Página de conteúdo e upload
 2. **Módulos Backend**: Transcrição e arquivos
 3. **Docker**: Containerização
 
@@ -184,14 +196,14 @@
 - **Configuração**: 0%
 - **Componentes**: 0%
 - **Integração**: 0%
-- **Testes**: 0%
+- **Internacionalização**: 0%
 
 ### **Infraestrutura**: 0% ⏳
 - **Docker**: 0%
 - **Deploy**: 0%
 - **Monitoramento**: 0%
 
-### **Documentação**: 90% ✅
+### **Documentação**: 95% ✅
 - **Técnica**: 100%
 - **API**: 0%
 - **Usuário**: 0%
@@ -214,6 +226,30 @@
 - Zero bugs críticos
 - Código bem documentado
 - Padrões seguidos consistentemente
+
+## 📋 Especificações do Frontend
+
+### **Stack Tecnológica**
+- **React 18**: Framework principal
+- **TypeScript**: Tipagem forte
+- **Vite**: Build tool
+- **Material-UI**: Componentes de UI
+- **React Router**: Roteamento
+- **Axios**: HTTP client
+- **i18n**: Internacionalização
+
+### **Funcionalidades MVP**
+- **Autenticação OTP**: Login via email
+- **Upload de Áudio**: Máximo 20MB
+- **Transcrição**: Exibição de resultado
+- **Download**: Arquivo transcrito
+- **Internacionalização**: PT/EN
+
+### **Segurança**
+- **Rate Limiting**: Client-side
+- **Sanitização**: Dados de entrada
+- **JWT**: Refresh automático
+- **Validação**: Arquivos e formatos
 
 ---
 

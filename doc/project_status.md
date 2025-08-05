@@ -3,8 +3,8 @@
 ## 📊 Visão Geral
 
 **Data da Última Atualização**: 05/08/2025  
-**Versão**: 1.0.0  
-**Status**: ✅ **FUNCIONANDO PERFEITAMENTE**
+**Versão**: 2.2.0  
+**Status**: ✅ **BACKEND PRONTO PARA PRODUÇÃO** | ⏳ **FRONTEND PENDENTE**
 
 ## 🎯 Status Atual
 
@@ -27,7 +27,8 @@
 ### ⏳ **Frontend (React) - PENDENTE**
 - **⏳ Interface de Usuário**: A ser implementada
 - **⏳ Integração com Backend**: A ser implementada
-- **⏳ Testes Frontend**: A ser implementada
+- **⏳ Internacionalização**: PT/EN a ser implementada
+- **⏳ Material-UI**: A ser configurado
 
 ### ⏳ **Infraestrutura - PENDENTE**
 - **⏳ Docker**: Configurado mas não testado
@@ -139,13 +140,14 @@ backend/tests/bdd/
 
 ### **Prioridade Alta**
 1. **Frontend React**: Implementar interface de usuário
-2. **Integração Frontend-Backend**: Conectar APIs
-3. **Testes Frontend**: Implementar testes E2E
+2. **Material-UI**: Configurar componentes
+3. **Internacionalização**: Implementar PT/EN
+4. **Integração Frontend-Backend**: Conectar APIs
 
 ### **Prioridade Média**
-1. **Docker**: Testar e otimizar containers
-2. **Deploy**: Configurar ambiente de produção
-3. **CI/CD**: Implementar pipeline automatizado
+1. **Módulos Backend**: Transcrição e arquivos
+2. **Docker**: Testar e otimizar containers
+3. **Deploy**: Configurar ambiente de produção
 
 ### **Prioridade Baixa**
 1. **Monitoramento**: Implementar métricas
@@ -172,6 +174,42 @@ backend/tests/bdd/
 - Código bem documentado e organizado
 - Padrões de desenvolvimento seguidos
 
+## 📋 Especificações do Frontend
+
+### **Stack Tecnológica Definida**
+- **React 18**: Framework principal
+- **TypeScript**: Tipagem forte
+- **Vite**: Build tool
+- **Material-UI**: Componentes de UI
+- **React Router**: Roteamento
+- **Axios**: HTTP client
+- **i18n**: Internacionalização
+
+### **Documentação Visual**
+- **Diagramas Mermaid**: 10 diagramas criados
+- **Fluxos de Arquitetura**: Documentados visualmente
+- **Estados de Processamento**: Mapeados
+- **Integrações**: Visualizadas
+
+### **Funcionalidades MVP**
+- **Autenticação OTP**: Login via email
+- **Upload de Áudio**: Máximo 20MB
+- **Transcrição**: Exibição de resultado
+- **Download**: Arquivo transcrito
+- **Internacionalização**: PT/EN
+
+### **Segurança**
+- **Rate Limiting**: Client-side
+- **Sanitização**: Dados de entrada
+- **JWT**: Refresh automático
+- **Validação**: Arquivos e formatos
+
+### **Interface**
+- **Modo Visual**: Apenas modo claro
+- **Responsividade**: Desktop e mobile
+- **Idiomas**: Português e Inglês
+- **Componentes**: Material-UI
+
 ## 📝 Notas Técnicas
 
 ### **Ambiente de Desenvolvimento**
@@ -187,7 +225,25 @@ backend/tests/bdd/
 - **Logs Limpos**: Queries SQL desabilitadas
 - **Timeout BDD**: 10 segundos para steps lentos
 
+### **Variáveis de Ambiente**
+- **Backend**: Configuradas e funcionando
+- **Frontend**: A serem definidas
+- **Docker**: Configurado mas não testado
+- **Portainer**: Stack definido
+
+### **Integrações Externas**
+- **OpenAI Whisper**: Para transcrição de áudio (modelo base)
+- **OpenAI GPT**: Para tradução de texto
+- **MinIO**: Para armazenamento de arquivos
+- **RabbitMQ**: Para processamento assíncrono
+
+### **Configurações de Budget**
+- **Limite Mensal**: R$ 100,00
+- **Moeda**: BRL
+- **Monitoramento**: Logs detalhados de custos
+- **Alertas**: Quando próximo do limite
+
 ---
 
-**Status**: ✅ **PRONTO PARA PRODUÇÃO** (Backend)  
-**Próximo Milestone**: Implementação do Frontend React
+**Status**: ✅ **BACKEND PRONTO PARA PRODUÇÃO**  
+**Próximo Milestone**: Implementação do Frontend React com Material-UI

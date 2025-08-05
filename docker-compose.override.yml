@@ -1,0 +1,100 @@
+version: '3.8'
+
+services:
+  # Backend API - Development Override
+  api:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://user:pass@db:5432/gwan_dev
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ACCESS_KEY=admin
+      - MINIO_SECRET_KEY=password
+      - RABBITMQ_URL=amqp://rabbitmq:5672
+      - RABBITMQ_USER=admin
+      - RABBITMQ_PASS=password
+      - EMAIL_HOST=mailhog
+      - EMAIL_PORT=1025
+      - EMAIL_USER=dev@gwan.br
+      - EMAIL_PASS=dev
+      - OPENAI_API_KEY=your-openai-api-key
+      - OPENAI_ORGANIZATION=your-openai-organization-id
+      - JWT_SECRET=dev-secret-key
+      - JWT_EXPIRES_IN=24h
+      - RATE_LIMIT_WINDOW=15m
+      - RATE_LIMIT_MAX=100
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      - db
+      - minio
+      - rabbitmq
+      - mailhog
+
+  # Frontend - Development Override
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:3000
+      - VITE_APP_NAME=Gwan Transcribe
+      - VITE_DEFAULT_LANGUAGE=pt-BR
+      - VITE_SUPPORTED_LANGUAGES=pt-BR,en-US
+      - VITE_MAX_FILE_SIZE=20971520
+      - VITE_ALLOWED_FILE_TYPES=audio/mp3,audio/wav,audio/m4a,audio/aac,audio/flac
+      - VITE_RATE_LIMIT_ENABLED=true
+      - VITE_RATE_LIMIT_MAX=10
+      - VITE_RATE_LIMIT_WINDOW=60000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - api
+
+  # PostgreSQL Database - Development Override
+  db:
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=gwan_dev
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+
+  # MinIO Storage - Development Override
+  minio:
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=password
+
+  # RabbitMQ - Development Override
+  rabbitmq:
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=password
+
+  # MailHog for email testing - Development Only
+  mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    environment:
+      - MH_STORAGE=memory
+
+networks:
+  default:
+    name: gwan-transcribe-dev 

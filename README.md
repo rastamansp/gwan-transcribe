@@ -20,6 +20,8 @@ Toda a documentação detalhada do projeto está organizada na pasta `/doc`:
 - **[📝 Tarefas Detalhadas](doc/tasks.md)** - Lista completa de tarefas com status de execução
 - **[📋 PRD](doc/prd.md)** - Product Requirements Document completo
 - **[👤 Fluxo do Usuário](doc/user-flow.md)** - Fluxo completo de autenticação e transcrição
+- **[📊 Diagramas de Fluxo](doc/application-flow.md)** - Diagramas Mermaid da arquitetura e fluxos
+- **[📋 Índice de Diagramas](doc/diagrams-index.md)** - Guia rápido para navegar pelos diagramas
 - **[🐳 Docker Setup](doc/docker-setup.md)** - Configuração Docker e Portainer
 - **[🏗️ Arquitetura](doc/architecture/)** - Documentação de arquitetura e decisões técnicas
 - **[🔌 APIs](doc/api/)** - Documentação das APIs do backend
