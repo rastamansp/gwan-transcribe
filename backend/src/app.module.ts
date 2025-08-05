@@ -26,7 +26,7 @@ import { AppService } from './app.service';
 
 // Módulos da aplicação
 import { AuthModule } from './modules/auth/auth.module';
-// import { UserModule } from './modules/user/user.module';
+import { UserModule } from './modules/user/user.module';
 // import { TranscriptionModule } from './modules/transcription/transcription.module';
 // import { FileModule } from './modules/file/file.module';
 // import { HistoryModule } from './modules/history/history.module';
@@ -60,7 +60,7 @@ import { AuthModule } from './modules/auth/auth.module';
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         migrations: [__dirname + '/infrastructure/database/migrations/*{.ts,.js}'],
         synchronize: configService.get('app.nodeEnv') === 'development',
-        logging: configService.get('app.nodeEnv') === 'development',
+        logging: false, // Desabilitar logging de queries
         ssl: configService.get('app.nodeEnv') === 'production' ? { rejectUnauthorized: false } : false,
       }),
       inject: [ConfigService],
@@ -84,7 +84,7 @@ import { AuthModule } from './modules/auth/auth.module';
 
     // Módulos da aplicação
     AuthModule,
-    // UserModule,
+    UserModule,
     // TranscriptionModule,
     // FileModule,
     // HistoryModule,

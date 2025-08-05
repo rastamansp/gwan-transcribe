@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, BadRequestException, UnauthorizedException, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { VerifyOTPDto } from '../dto/verify-otp.dto';
@@ -19,6 +19,19 @@ export class VerifyOTPUseCase {
 
   async execute(dto: VerifyOTPDto): Promise<AuthResponseDto> {
     this.logger.log(`Verificação de OTP iniciada para ${dto.email}`, 'VerifyOTPUseCase');
+    
+    // Primeiro, verificar se o usuário existe
+    const user = await this.userRepository.findByEmail(dto.email);
+    if (!user) {
+      this.logger.warn(`Usuário não encontrado para ${dto.email}`, 'VerifyOTPUseCase');
+      throw new NotFoundException('Usuário não encontrado');
+    }
+
+    // Verificar se usuário está bloqueado
+    if (user.lockedUntil && user.lockedUntil > new Date()) {
+      this.logger.warn(`Conta bloqueada para ${dto.email}`, 'VerifyOTPUseCase');
+      throw new BadRequestException('Conta temporariamente bloqueada');
+    }
     
     // Buscar OTP válido
     const otp = await this.otpRepository.findByEmailAndCode(dto.email, dto.code);
@@ -41,19 +54,6 @@ export class VerifyOTPUseCase {
     if (otp.attempts >= this.configService.get<number>('otp.maxAttempts', 3)) {
       this.logger.warn(`Máximo de tentativas excedido para ${dto.email}`, 'VerifyOTPUseCase');
       throw new BadRequestException('Máximo de tentativas excedido');
-    }
-
-    // Buscar usuário
-    const user = await this.userRepository.findByEmail(dto.email);
-    if (!user) {
-      this.logger.warn(`Usuário não encontrado para ${dto.email}`, 'VerifyOTPUseCase');
-      throw new BadRequestException('Usuário não encontrado');
-    }
-
-    // Verificar se usuário está bloqueado
-    if (user.lockedUntil && user.lockedUntil > new Date()) {
-      this.logger.warn(`Conta bloqueada para ${dto.email}`, 'VerifyOTPUseCase');
-      throw new BadRequestException('Conta temporariamente bloqueada');
     }
 
     // Marcar OTP como usado

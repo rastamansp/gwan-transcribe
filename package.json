@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "dev": "pnpm run --parallel dev",
+    "start:dev": "pnpm --filter backend run start:dev",
     "dev:backend": "pnpm --filter backend run dev",
     "dev:frontend": "pnpm --filter frontend run dev",
     "build": "pnpm run --recursive build",

@@ -1,0 +1,4018 @@
+[
+  {
+    "description": "  Como um usuário\n  Eu quero me autenticar usando OTP via email\n  Para acessar o sistema de transcrição",
+    "elements": [
+      {
+        "description": "",
+        "id": "autenticação-otp;solicitar-otp-com-sucesso",
+        "keyword": "Cenário",
+        "line": 11,
+        "name": "Solicitar OTP com sucesso",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 1091200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 175551900
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que o sistema de email está configurado",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 361899
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"email\": \"teste@example.com\",\n  \"name\": \"Usuário Teste\"\n}",
+                "line": 13
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 12,
+            "name": "eu envio uma requisição POST para \"/auth/request-otp\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3537992000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 19,
+            "name": "a resposta deve ter status 201",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 446599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 20,
+            "name": "a resposta deve conter \"success\" como true",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:66"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 349899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 21,
+            "name": "a resposta deve conter \"message\" contendo \"Código de verificação enviado\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:61"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1081799
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 37618800
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "autenticação-otp;solicitar-otp-com-email-inválido",
+        "keyword": "Cenário",
+        "line": 23,
+        "name": "Solicitar OTP com email inválido",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 469100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 24815200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que o sistema de email está configurado",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 609000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"email\": \"email-invalido\",\n  \"name\": \"Usuário Teste\"\n}",
+                "line": 25
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 24,
+            "name": "eu envio uma requisição POST para \"/auth/request-otp\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 18150700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 31,
+            "name": "a resposta deve ter status 400",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 221999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 32,
+            "name": "a resposta deve conter \"error\" como \"Bad Request\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 449799
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 35061500
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "autenticação-otp;solicitar-otp-sem-nome",
+        "keyword": "Cenário",
+        "line": 34,
+        "name": "Solicitar OTP sem nome",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 336799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 135005999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que o sistema de email está configurado",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 817000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"email\": \"teste@example.com\"\n}",
+                "line": 36
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 35,
+            "name": "eu envio uma requisição POST para \"/auth/request-otp\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 7916400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 41,
+            "name": "a resposta deve ter status 400",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 227100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 42,
+            "name": "a resposta deve conter \"error\" como \"Bad Request\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 234899
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 30794300
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "autenticação-otp;verificar-otp-com-sucesso",
+        "keyword": "Cenário",
+        "line": 44,
+        "name": "Verificar OTP com sucesso",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 297699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 25680500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que o sistema de email está configurado",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 303600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 45,
+            "name": "que um OTP foi enviado para \"teste@example.com\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4151148000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"email\": \"teste@example.com\",\n  \"code\": \"123456\"\n}",
+                "line": 47
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 46,
+            "name": "eu envio uma requisição POST para \"/auth/verify-otp\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 124023400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 53,
+            "name": "a resposta deve ter status 200",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 242599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 54,
+            "name": "a resposta deve conter \"success\" como true",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:66"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 178799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 55,
+            "name": "a resposta deve conter \"token\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:50"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 373199
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 27729899
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "autenticação-otp;verificar-otp-com-código-inválido",
+        "keyword": "Cenário",
+        "line": 57,
+        "name": "Verificar OTP com código inválido",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 323000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 26382900
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que o sistema de email está configurado",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 367000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 58,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 24157599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 59,
+            "name": "que o sistema de email está configurado",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 561300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 60,
+            "name": "que um OTP foi enviado para \"teste@example.com\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3578447300
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"email\": \"teste@example.com\",\n  \"code\": \"000000\"\n}",
+                "line": 62
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 61,
+            "name": "eu envio uma requisição POST para \"/auth/verify-otp\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 53063399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 68,
+            "name": "a resposta deve ter status 401",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 168599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 69,
+            "name": "a resposta deve conter \"error\" como \"Unauthorized\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 113400
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 25834700
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "autenticação-otp;verificar-otp-com-email-não-encontrado",
+        "keyword": "Cenário",
+        "line": 71,
+        "name": "Verificar OTP com email não encontrado",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 293300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 27034299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que o sistema de email está configurado",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 336900
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"email\": \"nao-existe@example.com\",\n  \"code\": \"123456\"\n}",
+                "line": 73
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 72,
+            "name": "eu envio uma requisição POST para \"/auth/verify-otp\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 28692500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 79,
+            "name": "a resposta deve ter status 404",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 139699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 80,
+            "name": "a resposta deve conter \"error\" como \"Not Found\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 169599
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 32098999
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "autenticação-otp;verificar-otp-com-código-vazio",
+        "keyword": "Cenário",
+        "line": 82,
+        "name": "Verificar OTP com código vazio",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 654299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 26443699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que o sistema de email está configurado",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 240799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 83,
+            "name": "que um OTP foi enviado para \"teste@example.com\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3125398700
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"email\": \"teste@example.com\",\n  \"code\": \"\"\n}",
+                "line": 85
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 84,
+            "name": "eu envio uma requisição POST para \"/auth/verify-otp\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4707899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 91,
+            "name": "a resposta deve ter status 400",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 177199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 92,
+            "name": "a resposta deve conter \"error\" como \"Bad Request\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 119200
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 31207500
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "autenticação-otp;múltiplas-tentativas-de-request-otp",
+        "keyword": "Cenário",
+        "line": 94,
+        "name": "Múltiplas tentativas de request OTP",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 254399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 23171800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que o sistema de email está configurado",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 418399
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"email\": \"stress@example.com\",\n  \"name\": \"Teste Stress\"\n}",
+                "line": 96
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 95,
+            "name": "eu envio uma requisição POST para \"/auth/request-otp\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4655958800
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"email\": \"stress@example.com\",\n  \"name\": \"Teste Stress\"\n}",
+                "line": 103
+              }
+            ],
+            "keyword": "E ",
+            "line": 102,
+            "name": "eu envio uma requisição POST para \"/auth/request-otp\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2874600399
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"email\": \"stress@example.com\",\n  \"name\": \"Teste Stress\"\n}",
+                "line": 110
+              }
+            ],
+            "keyword": "E ",
+            "line": 109,
+            "name": "eu envio uma requisição POST para \"/auth/request-otp\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3158845099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 116,
+            "name": "todas as respostas devem ter status 201",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:71"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 282699
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 25330599
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "autenticação-otp;teste-de-validação---email-muito-longo",
+        "keyword": "Cenário",
+        "line": 118,
+        "name": "Teste de validação - Email muito longo",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 291300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 23985099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que o sistema de email está configurado",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 339399
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"email\": \"email-muito-longo-que-excede-o-limite-maximo-permitido-pela-validacao@example.com\",\n  \"name\": \"Usuário Teste\"\n}",
+                "line": 120
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 119,
+            "name": "eu envio uma requisição POST para \"/auth/request-otp\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3937799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 126,
+            "name": "a resposta deve ter status 400",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 962499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 127,
+            "name": "a resposta deve conter \"error\" como \"Bad Request\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 160700
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 45800599
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "autenticação-otp;teste-de-validação---nome-muito-longo",
+        "keyword": "Cenário",
+        "line": 129,
+        "name": "Teste de validação - Nome muito longo",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 420600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 23248599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que o sistema de email está configurado",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 339299
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"email\": \"teste@example.com\",\n  \"name\": \"Nome muito longo que pode exceder o limite máximo permitido pela validação do sistema e ainda ter mais caracteres para garantir que realmente exceda o limite de 100 caracteres estabelecido pela validação\"\n}",
+                "line": 131
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 130,
+            "name": "eu envio uma requisição POST para \"/auth/request-otp\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4012800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 137,
+            "name": "a resposta deve ter status 400",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 182400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 138,
+            "name": "a resposta deve conter \"error\" como \"Bad Request\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 128399
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 34577900
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "autenticação-otp;teste-de-segurança---sql-injection",
+        "keyword": "Cenário",
+        "line": 140,
+        "name": "Teste de segurança - SQL Injection",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 236200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 30954799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que o sistema de email está configurado",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 344000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"email\": \"test'; DROP TABLE users; --@example.com\",\n  \"name\": \"SQL Injection\"\n}",
+                "line": 142
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 141,
+            "name": "eu envio uma requisição POST para \"/auth/request-otp\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3659099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 148,
+            "name": "a resposta deve ter status 400",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 142599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 149,
+            "name": "a resposta deve conter \"error\" como \"Bad Request\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 107800
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 24606799
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "autenticação-otp;teste-de-segurança---xss",
+        "keyword": "Cenário",
+        "line": 151,
+        "name": "Teste de segurança - XSS",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 248400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 22452199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que o sistema de email está configurado",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 500500
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"email\": \"teste@example.com\",\n  \"name\": \"<script>alert('XSS')</script>\"\n}",
+                "line": 153
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 152,
+            "name": "eu envio uma requisição POST para \"/auth/request-otp\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3044948000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 159,
+            "name": "a resposta deve ter status 201",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 143899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 160,
+            "name": "a resposta deve conter \"success\" como true",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:66"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 109000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 26354899
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "autenticação-otp",
+    "line": 2,
+    "keyword": "Funcionalidade",
+    "name": "Autenticação OTP",
+    "tags": [],
+    "uri": "tests\\bdd\\features\\authentication.feature"
+  },
+  {
+    "description": "  Como um usuário autenticado\n  Eu quero gerenciar meu perfil\n  Para manter minhas informações atualizadas",
+    "elements": [
+      {
+        "description": "",
+        "id": "gestão-de-usuários;obter-perfil-do-usuário-com-sucesso",
+        "keyword": "Cenário",
+        "line": 11,
+        "name": "Obter perfil do usuário com sucesso",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 238299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 24172299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 150699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Quando ",
+            "line": 12,
+            "name": "eu envio uma requisição GET para \"/users/profile\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 45872600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 13,
+            "name": "a resposta deve ter status 200",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 177700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 14,
+            "name": "a resposta deve conter \"id\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:50"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 205900
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 15,
+            "name": "a resposta deve conter \"email\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:50"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 128099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 16,
+            "name": "a resposta deve conter \"name\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:50"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 167999
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 25498000
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;obter-perfil-sem-token",
+        "keyword": "Cenário",
+        "line": 18,
+        "name": "Obter perfil sem token",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 240600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 22527300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 96300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 19,
+            "name": "que não estou autenticado",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 121599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Quando ",
+            "line": 20,
+            "name": "eu envio uma requisição GET para \"/users/profile\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3572499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 21,
+            "name": "a resposta deve ter status 401",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 130199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 22,
+            "name": "a resposta deve conter \"error\" como \"Unauthorized\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 139599
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 28452799
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;obter-perfil-com-token-inválido",
+        "keyword": "Cenário",
+        "line": 24,
+        "name": "Obter perfil com token inválido",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 488700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 23995600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 163399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 25,
+            "name": "que estou autenticado com token inválido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 153699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Quando ",
+            "line": 26,
+            "name": "eu envio uma requisição GET para \"/users/profile\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4343399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 27,
+            "name": "a resposta deve ter status 401",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 128400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 28,
+            "name": "a resposta deve conter \"error\" como \"Unauthorized\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 127099
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 28762999
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;atualizar-perfil-com-sucesso---nome",
+        "keyword": "Cenário",
+        "line": 30,
+        "name": "Atualizar perfil com sucesso - Nome",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 366600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 23798099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 96100
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"name\": \"Pedro Henrique Almeida\"\n}",
+                "line": 32
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 31,
+            "name": "eu envio uma requisição PUT para \"/users/profile\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 100849999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 37,
+            "name": "a resposta deve ter status 200",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 154899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 38,
+            "name": "a resposta deve conter \"success\" como true",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:66"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 113300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 39,
+            "name": "a resposta deve conter \"message\" contendo \"Perfil atualizado\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:61"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 179799
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 30581599
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;atualizar-perfil-com-sucesso---email",
+        "keyword": "Cenário",
+        "line": 41,
+        "name": "Atualizar perfil com sucesso - Email",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 204599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 21116900
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 97799
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"email\": \"pedro.almeida@gmail.com\"\n}",
+                "line": 43
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 42,
+            "name": "eu envio uma requisição PUT para \"/users/profile\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 111541400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 48,
+            "name": "a resposta deve ter status 200",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 140099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 49,
+            "name": "a resposta deve conter \"success\" como true",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:66"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 89299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 50,
+            "name": "a resposta deve conter \"message\" contendo \"Perfil atualizado\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:61"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 149900
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 24194100
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;atualizar-perfil-com-sucesso---nome-e-email",
+        "keyword": "Cenário",
+        "line": 52,
+        "name": "Atualizar perfil com sucesso - Nome e Email",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 228799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 24304600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 120200
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"name\": \"Pedro H. Almeida\",\n  \"email\": \"pedro.h.almeida@gmail.com\"\n}",
+                "line": 54
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 53,
+            "name": "eu envio uma requisição PUT para \"/users/profile\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 122232800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 60,
+            "name": "a resposta deve ter status 200",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 160700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 61,
+            "name": "a resposta deve conter \"success\" como true",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:66"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 103100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 62,
+            "name": "a resposta deve conter \"message\" contendo \"Perfil atualizado\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:61"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 170799
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 24569999
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;atualizar-perfil-com-email-já-existente",
+        "keyword": "Cenário",
+        "line": 64,
+        "name": "Atualizar perfil com email já existente",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 209600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 24139600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 117599
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"email\": \"test@example.com\"\n}",
+                "line": 66
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 65,
+            "name": "eu envio uma requisição PUT para \"/users/profile\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 71676099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 71,
+            "name": "a resposta deve ter status 409",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 129699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 72,
+            "name": "a resposta deve conter \"error\" como \"Conflict\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 112500
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 25727900
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;atualizar-perfil-com-nome-muito-longo",
+        "keyword": "Cenário",
+        "line": 74,
+        "name": "Atualizar perfil com nome muito longo",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 212599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 33721499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 101599
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"name\": \"Nome muito longo que excede o limite máximo permitido pela validação do sistema de usuários com mais de 100 caracteres para testar se a validação está funcionando corretamente\"\n}",
+                "line": 76
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 75,
+            "name": "eu envio uma requisição PUT para \"/users/profile\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 25749600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 81,
+            "name": "a resposta deve ter status 400",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 138700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 82,
+            "name": "a resposta deve conter \"error\" como \"Bad Request\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 118000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 24332400
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;atualizar-perfil-com-nome-null",
+        "keyword": "Cenário",
+        "line": 84,
+        "name": "Atualizar perfil com nome null",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 251599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 23989200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 100400
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"name\": null\n}",
+                "line": 86
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 85,
+            "name": "eu envio uma requisição PUT para \"/users/profile\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 48320500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 91,
+            "name": "a resposta deve ter status 400",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 153899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 92,
+            "name": "a resposta deve conter \"error\" como \"Bad Request\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 107700
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 25350800
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;atualizar-perfil-com-nome-vazio",
+        "keyword": "Cenário",
+        "line": 94,
+        "name": "Atualizar perfil com nome vazio",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 218399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 23066399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 93399
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"name\": \"\"\n}",
+                "line": 96
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 95,
+            "name": "eu envio uma requisição PUT para \"/users/profile\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 50504200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 101,
+            "name": "a resposta deve ter status 400",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 202000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 102,
+            "name": "a resposta deve conter \"error\" como \"Bad Request\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 109199
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 26729299
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;atualizar-perfil-com-body-vazio",
+        "keyword": "Cenário",
+        "line": 104,
+        "name": "Atualizar perfil com body vazio",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 227200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 24224699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 89699
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n}",
+                "line": 106
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 105,
+            "name": "eu envio uma requisição PUT para \"/users/profile\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 49979800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 110,
+            "name": "a resposta deve ter status 400",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 132599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 111,
+            "name": "a resposta deve conter \"error\" como \"Bad Request\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 101800
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 25131900
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;atualizar-perfil-com-email-inválido",
+        "keyword": "Cenário",
+        "line": 113,
+        "name": "Atualizar perfil com email inválido",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 257200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 24811999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 123399
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"email\": \"email-invalido\"\n}",
+                "line": 115
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 114,
+            "name": "eu envio uma requisição PUT para \"/users/profile\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 31322200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 120,
+            "name": "a resposta deve ter status 400",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 355300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 121,
+            "name": "a resposta deve conter \"error\" como \"Bad Request\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 278099
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 25484499
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;atualizar-perfil-sem-token",
+        "keyword": "Cenário",
+        "line": 123,
+        "name": "Atualizar perfil sem token",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 271399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 22257900
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 97799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 124,
+            "name": "que não estou autenticado",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 52500
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"name\": \"Pedro Almeida\"\n}",
+                "line": 126
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 125,
+            "name": "eu envio uma requisição PUT para \"/users/profile\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2862099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 131,
+            "name": "a resposta deve ter status 401",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 121799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 132,
+            "name": "a resposta deve conter \"error\" como \"Unauthorized\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 98399
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 24681100
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;desativar-perfil-com-sucesso",
+        "keyword": "Cenário",
+        "line": 134,
+        "name": "Desativar perfil com sucesso",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 270499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 26992600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 95700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Quando ",
+            "line": 135,
+            "name": "eu envio uma requisição DELETE para \"/users/profile\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:36"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 89729000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 136,
+            "name": "a resposta deve ter status 200",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 170500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 137,
+            "name": "a resposta deve conter \"success\" como true",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:66"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 101500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 138,
+            "name": "a resposta deve conter \"message\" contendo \"Conta desativada\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:61"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 160599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Quando ",
+            "line": 140,
+            "name": "eu envio uma requisição POST para \"/users/activate\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:27"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 77909700
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 30865599
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;desativar-perfil-sem-token",
+        "keyword": "Cenário",
+        "line": 142,
+        "name": "Desativar perfil sem token",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 300199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 24462400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 118699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 143,
+            "name": "que não estou autenticado",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 63399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Quando ",
+            "line": 144,
+            "name": "eu envio uma requisição DELETE para \"/users/profile\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:36"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3348700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 145,
+            "name": "a resposta deve ter status 401",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 229899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 146,
+            "name": "a resposta deve conter \"error\" como \"Unauthorized\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 197000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 26955699
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;desativar-perfil-já-inativo",
+        "keyword": "Cenário",
+        "line": 148,
+        "name": "Desativar perfil já inativo",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 398600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 23931600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 154099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 149,
+            "name": "que meu perfil está inativo",
+            "match": {
+              "location": "tests\\bdd\\steps\\user-management.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 102075599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Quando ",
+            "line": 150,
+            "name": "eu envio uma requisição DELETE para \"/users/profile\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:36"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 31100899
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 151,
+            "name": "a resposta deve ter status 401",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 180500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 152,
+            "name": "a resposta deve conter \"error\" como \"Unauthorized\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 125099
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 70735599
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;obter-estatísticas-do-usuário-com-sucesso",
+        "keyword": "Cenário",
+        "line": 154,
+        "name": "Obter estatísticas do usuário com sucesso",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 275399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 27559999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1025800
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Quando ",
+            "line": 155,
+            "name": "eu envio uma requisição GET para \"/users/statistics\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 70572999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 156,
+            "name": "a resposta deve ter status 200",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 336199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 157,
+            "name": "a resposta deve conter \"totalTranscriptions\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:50"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 239999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 158,
+            "name": "a resposta deve conter \"totalMinutes\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:50"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 183000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 159,
+            "name": "a resposta deve conter \"averageAccuracy\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:50"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 209300
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 31728699
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;obter-estatísticas-sem-token",
+        "keyword": "Cenário",
+        "line": 161,
+        "name": "Obter estatísticas sem token",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 337300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 24679299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 109499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 162,
+            "name": "que não estou autenticado",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 79200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Quando ",
+            "line": 163,
+            "name": "eu envio uma requisição GET para \"/users/statistics\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3731400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 164,
+            "name": "a resposta deve ter status 401",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 229200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 165,
+            "name": "a resposta deve conter \"error\" como \"Unauthorized\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 163099
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 24932800
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;obter-estatísticas-com-token-inválido",
+        "keyword": "Cenário",
+        "line": 167,
+        "name": "Obter estatísticas com token inválido",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 215799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 22019000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 82900
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 168,
+            "name": "que estou autenticado com token inválido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:13"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 74300
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Quando ",
+            "line": 169,
+            "name": "eu envio uma requisição GET para \"/users/statistics\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3340599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 170,
+            "name": "a resposta deve ter status 401",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 109700
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 171,
+            "name": "a resposta deve conter \"error\" como \"Unauthorized\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 101900
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 29256999
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;múltiplas-requisições-de-perfil-simultâneas",
+        "keyword": "Cenário",
+        "line": 173,
+        "name": "Múltiplas requisições de perfil simultâneas",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 419199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 27284099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 231399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Quando ",
+            "line": 174,
+            "name": "eu envio uma requisição GET para \"/users/profile\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 59606599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 175,
+            "name": "eu envio uma requisição GET para \"/users/profile\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 45613000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 176,
+            "name": "eu envio uma requisição GET para \"/users/profile\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 54908600
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 177,
+            "name": "todas as respostas devem ter status 200",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:71"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 123200
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 24476099
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;múltiplas-atualizações-de-perfil-simultâneas",
+        "keyword": "Cenário",
+        "line": 179,
+        "name": "Múltiplas atualizações de perfil simultâneas",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 226499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 23309200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 236100
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"name\": \"Pedro Almeida - Teste 1\"\n}",
+                "line": 181
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 180,
+            "name": "eu envio uma requisição PUT para \"/users/profile\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 102281800
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"name\": \"Pedro Almeida - Teste 2\"\n}",
+                "line": 187
+              }
+            ],
+            "keyword": "E ",
+            "line": 186,
+            "name": "eu envio uma requisição PUT para \"/users/profile\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 100452699
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"name\": \"Pedro Almeida - Teste 3\"\n}",
+                "line": 193
+              }
+            ],
+            "keyword": "E ",
+            "line": 192,
+            "name": "eu envio uma requisição PUT para \"/users/profile\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 104155299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 198,
+            "name": "todas as respostas devem ter status 200",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:71"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 138000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 22418200
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;teste-de-validação---nome-com-caracteres-especiais",
+        "keyword": "Cenário",
+        "line": 200,
+        "name": "Teste de validação - Nome com caracteres especiais",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 296999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 25260100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 101800
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"name\": \"Pedro Henrique Pinheiro de Almeida\"\n}",
+                "line": 202
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 201,
+            "name": "eu envio uma requisição PUT para \"/users/profile\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 94367699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 207,
+            "name": "a resposta deve ter status 200",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 426499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 208,
+            "name": "a resposta deve conter \"success\" como true",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:66"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 373599
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 26603000
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;teste-de-validação---email-com-caracteres-especiais",
+        "keyword": "Cenário",
+        "line": 210,
+        "name": "Teste de validação - Email com caracteres especiais",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 246399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 21248500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 91199
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"email\": \"pedro.henrique+teste@gmail.com\"\n}",
+                "line": 212
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 211,
+            "name": "eu envio uma requisição PUT para \"/users/profile\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 117283799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 217,
+            "name": "a resposta deve ter status 200",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 126200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 218,
+            "name": "a resposta deve conter \"success\" como true",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:66"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 139799
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 25881500
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;teste-de-validação---campos-vazios",
+        "keyword": "Cenário",
+        "line": 220,
+        "name": "Teste de validação - Campos vazios",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 203500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 21963799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 83599
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"name\": \"\",\n  \"email\": \"\"\n}",
+                "line": 222
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 221,
+            "name": "eu envio uma requisição PUT para \"/users/profile\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 44065000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 228,
+            "name": "a resposta deve ter status 400",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 126599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 229,
+            "name": "a resposta deve conter \"error\" como \"Bad Request\"",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 120300
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 32224000
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;teste-de-segurança---sql-injection",
+        "keyword": "Cenário",
+        "line": 231,
+        "name": "Teste de segurança - SQL Injection",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 221699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 20447599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 85600
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"name\": \"Pedro'; DROP TABLE users; --\",\n  \"email\": \"pedro@example.com\"\n}",
+                "line": 233
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 232,
+            "name": "eu envio uma requisição PUT para \"/users/profile\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 111256000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 239,
+            "name": "a resposta deve ter status 200",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 132599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 240,
+            "name": "a resposta deve conter \"success\" como true",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:66"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 92700
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 25367599
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gestão-de-usuários;teste-de-segurança---xss",
+        "keyword": "Cenário",
+        "line": 242,
+        "name": "Teste de segurança - XSS",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 275699
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Dado ",
+            "line": 8,
+            "name": "que o servidor está rodando",
+            "match": {
+              "location": "tests\\bdd\\steps\\authentication.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 27156200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 9,
+            "name": "que estou autenticado com token válido",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:5"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 87400
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n  \"name\": \"<script>alert('XSS')</script>\",\n  \"email\": \"pedro@example.com\"\n}",
+                "line": 244
+              }
+            ],
+            "keyword": "Quando ",
+            "line": 243,
+            "name": "eu envio uma requisição PUT para \"/users/profile\" com:",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 89901400
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Então ",
+            "line": 250,
+            "name": "a resposta deve ter status 200",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:41"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 176599
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "E ",
+            "line": 251,
+            "name": "a resposta deve conter \"success\" como true",
+            "match": {
+              "location": "tests\\bdd\\steps\\shared.steps.ts:66"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 132700
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 26281999
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "gestão-de-usuários",
+    "line": 2,
+    "keyword": "Funcionalidade",
+    "name": "Gestão de Usuários",
+    "tags": [],
+    "uri": "tests\\bdd\\features\\user-management.feature"
+  }
+]

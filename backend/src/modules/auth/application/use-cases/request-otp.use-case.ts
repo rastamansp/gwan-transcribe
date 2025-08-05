@@ -74,6 +74,10 @@ export class RequestOTPUseCase {
   }
 
   private generateOTPCode(): string {
+    // Em desenvolvimento, usar código fixo para facilitar testes
+    if (process.env.NODE_ENV === 'development') {
+      return '123456';
+    }
     return Math.floor(100000 + Math.random() * 900000).toString();
   }
 } 

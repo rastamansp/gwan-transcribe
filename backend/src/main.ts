@@ -4,6 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as compression from 'compression';
 import helmet from 'helmet';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -36,12 +37,41 @@ async function bootstrap() {
   // Configuração de prefixo global
   app.setGlobalPrefix('api/v1');
 
+  // Configuração do Swagger
+  const config = new DocumentBuilder()
+    .setTitle('Gwan Transcribe API')
+    .setDescription('API para transcrição de áudio usando Azure OpenAI')
+    .setVersion('1.0')
+    .addTag('auth', 'Autenticação OTP')
+    .addTag('users', 'Gestão de usuários')
+    .addTag('transcriptions', 'Transcrição de áudio')
+    .addTag('files', 'Upload e gestão de arquivos')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Enter JWT token',
+        in: 'header',
+      },
+      'JWT-auth',
+    )
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api/v1/docs', app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+  });
+
   const port = configService.get<number>('app.port') || 3000;
   
   await app.listen(port);
   
   console.log(`🚀 Application is running on: http://localhost:${port}`);
-  console.log(`📚 API Documentation: http://localhost:${port}/api/v1`);
+  console.log(`📚 API Documentation: http://localhost:${port}/api/v1/docs`);
 }
 
 bootstrap();

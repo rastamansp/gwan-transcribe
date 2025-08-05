@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-class UserDto {
+export class UserProfileResponseDto {
   @ApiProperty({
     description: 'ID único do usuário',
     example: '123e4567-e89b-12d3-a456-426614174000',
@@ -18,32 +18,30 @@ class UserDto {
     example: 'João Silva',
   })
   name: string;
-}
 
-export class AuthResponseDto {
   @ApiProperty({
-    description: 'Indica se a operação foi bem-sucedida',
+    description: 'Status ativo do usuário',
     example: true,
   })
-  success: boolean;
+  isActive: boolean;
 
   @ApiProperty({
-    description: 'Mensagem de resposta',
-    example: 'Código OTP enviado com sucesso',
+    description: 'Data de criação da conta',
+    example: '2025-01-04T20:30:00.000Z',
   })
-  message: string;
+  createdAt: Date;
 
   @ApiProperty({
-    description: 'Token JWT (apenas na verificação OTP)',
-    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+    description: 'Data do último login',
+    example: '2025-01-04T20:30:00.000Z',
     required: false,
   })
-  token?: string;
+  lastLoginAt?: Date;
 
   @ApiProperty({
-    description: 'Dados do usuário (apenas na verificação OTP)',
-    type: UserDto,
+    description: 'Data da última atualização',
+    example: '2025-01-04T20:30:00.000Z',
     required: false,
   })
-  user?: UserDto;
+  updatedAt?: Date;
 } 
