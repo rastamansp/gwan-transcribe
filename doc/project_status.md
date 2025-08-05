@@ -190,6 +190,7 @@ backend/tests/bdd/
 - **Fluxos de Arquitetura**: Documentados visualmente
 - **Estados de Processamento**: Mapeados
 - **Integrações**: Visualizadas
+- **Formato**: Apenas blocos Mermaid (sem imagens PNG)
 
 ### **Funcionalidades MVP**
 - **Autenticação OTP**: Login via email

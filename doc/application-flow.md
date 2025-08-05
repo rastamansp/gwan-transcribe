@@ -4,8 +4,6 @@
 
 ### 1. Fluxo Geral da Aplicação
 
-![Fluxo Geral da Aplicação](images/fluxo_geral.png)
-
 ```mermaid
 graph TD
     A[Usuário Acessa transcribe.gwan.br] --> B[Página de Login]
@@ -39,8 +37,6 @@ graph TD
 
 ### 2. Fluxo de Autenticação OTP
 
-![Fluxo de Autenticação OTP](images/fluxo_autenticacao_otp.png)
-
 ```mermaid
 sequenceDiagram
     participant U as Usuário
@@ -69,8 +65,6 @@ sequenceDiagram
 ```
 
 ### 3. Fluxo de Upload e Transcrição
-
-![Fluxo de Upload e Transcrição](images/fluxo_upload_transcricao.png)
 
 ```mermaid
 sequenceDiagram
@@ -108,8 +102,6 @@ sequenceDiagram
 ```
 
 ### 4. Arquitetura de Componentes
-
-![Arquitetura de Componentes](images/arquitetura_componentes.png)
 
 ```mermaid
 graph TB
@@ -158,8 +150,6 @@ graph TB
 
 ### 5. Estados de Processamento
 
-![Estados de Processamento](images/estados_processamento.png)
-
 ```mermaid
 stateDiagram-v2
     [*] --> Upload
@@ -177,8 +167,6 @@ stateDiagram-v2
 ```
 
 ### 6. Fluxo de Dados
-
-![Fluxo de Dados](images/fluxo_dados.png)
 
 ```mermaid
 graph LR
@@ -199,8 +187,6 @@ graph LR
 
 ### 7. Monitoramento de Custos
 
-![Monitoramento de Custos](images/monitoramento_custos.png)
-
 ```mermaid
 graph TD
     A[API Call] --> B[Log Service]
@@ -216,8 +202,6 @@ graph TD
 ```
 
 ### 8. Fluxo de Notificações
-
-![Fluxo de Notificações](images/fluxo_notificacoes.png)
 
 ```mermaid
 sequenceDiagram
@@ -236,8 +220,6 @@ sequenceDiagram
 
 ### 9. Estrutura de Filas
 
-![Estrutura de Filas](images/estrutura_filas.png)
-
 ```mermaid
 graph LR
     A[Upload Request] --> B[Transcription Queue]
@@ -249,8 +231,6 @@ graph LR
 ```
 
 ### 10. Fluxo de Internacionalização
-
-![Fluxo de Internacionalização](images/fluxo_intercionalizacao.png)
 
 ```mermaid
 graph TD
