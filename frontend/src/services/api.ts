@@ -43,8 +43,8 @@ api.interceptors.response.use(
 // API methods
 export const apiService = {
   // Auth
-  requestOTP: async (email: string): Promise<ApiResponse<void>> => {
-    const response = await api.post('/auth/request-otp', { email });
+  requestOTP: async (email: string, name: string): Promise<ApiResponse<void>> => {
+    const response = await api.post('/auth/request-otp', { email, name });
     return response.data;
   },
 

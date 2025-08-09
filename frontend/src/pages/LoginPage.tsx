@@ -11,11 +11,14 @@ import {
 } from '@mui/material';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage: React.FC = () => {
   const { login, verifyOTP } = useAuth();
   const { language } = useLanguage();
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [otp, setOtp] = useState('');
   const [showOTP, setShowOTP] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -27,14 +30,18 @@ const LoginPage: React.FC = () => {
       setError(language === 'pt' ? 'Email é obrigatório' : 'Email is required');
       return;
     }
+    if (!name) {
+      setError(language === 'pt' ? 'Nome é obrigatório' : 'Name is required');
+      return;
+    }
 
     setLoading(true);
     setError('');
 
     try {
-      await login(email);
+      await login(email, name);
       setShowOTP(true);
-    } catch (error) {
+    } catch {
       setError(language === 'pt' ? 'Erro ao enviar OTP' : 'Error sending OTP');
     } finally {
       setLoading(false);
@@ -53,7 +60,8 @@ const LoginPage: React.FC = () => {
 
     try {
       await verifyOTP(email, otp);
-    } catch (error) {
+      navigate('/');
+    } catch {
       setError(language === 'pt' ? 'OTP inválido' : 'Invalid OTP');
     } finally {
       setLoading(false);
@@ -95,6 +103,15 @@ const LoginPage: React.FC = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                margin="normal"
+                required
+                disabled={loading}
+              />
+              <TextField
+                fullWidth
+                label={language === 'pt' ? 'Nome' : 'Name'}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 margin="normal"
                 required
                 disabled={loading}

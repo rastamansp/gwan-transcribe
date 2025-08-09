@@ -7,9 +7,10 @@ interface AuthContextType {
   token: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (email: string) => Promise<void>;
+  login: (email: string, name: string) => Promise<void>;
   verifyOTP: (email: string, otp: string) => Promise<void>;
   logout: () => void;
+  updateUserInContext: (partial: Partial<User>) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -41,9 +42,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setIsLoading(false);
   }, []);
 
-  const login = async (email: string) => {
+  const login = async (email: string, name: string) => {
     try {
-      const response = await apiService.requestOTP(email);
+      const response = await apiService.requestOTP(email, name);
       if (!response.success) {
         throw new Error(response.message || 'Failed to request OTP');
       }
@@ -81,6 +82,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.removeItem('user');
   };
 
+  const updateUserInContext = (partial: Partial<User>) => {
+    setUser((prev) => {
+      const updated = { ...(prev as User), ...partial } as User;
+      localStorage.setItem('user', JSON.stringify(updated));
+      return updated;
+    });
+  };
+
   const value: AuthContextType = {
     user,
     token,
@@ -89,6 +98,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     login,
     verifyOTP,
     logout,
+    updateUserInContext,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

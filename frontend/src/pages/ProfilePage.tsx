@@ -7,21 +7,20 @@ import {
   TextField,
   Button,
   Alert,
-  Grid,
   Avatar,
   Divider,
   CircularProgress,
 } from '@mui/material';
-import { Person, Save, Edit } from '@mui/icons-material';
+import { Save, Edit } from '@mui/icons-material';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { apiService } from '@/services/api';
-import { User } from '@/types';
+// import { User } from '@/types';
 
 const ProfilePage: React.FC = () => {
-  const { user, token } = useAuth();
+  const { user, updateUserInContext } = useAuth();
   const { language } = useLanguage();
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -71,12 +70,11 @@ const ProfilePage: React.FC = () => {
             : 'Profile updated successfully!'
         );
         setEditing(false);
-        // Update the user in context
-        // This would typically be handled by the AuthContext
+        updateUserInContext({ name: formData.name.trim() });
       } else {
         throw new Error(response.message || 'Failed to update profile');
       }
-    } catch (error) {
+    } catch {
       setError(
         language === 'pt' 
           ? 'Erro ao atualizar perfil. Tente novamente.' 
@@ -96,13 +94,13 @@ const ProfilePage: React.FC = () => {
     setError('');
   };
 
-  if (loading) {
-    return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
-        <CircularProgress />
-      </Box>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
+  //       <CircularProgress />
+  //     </Box>
+  //   );
+  // }
 
   return (
     <Box>
@@ -129,8 +127,12 @@ const ProfilePage: React.FC = () => {
         </Alert>
       )}
 
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={8}>
+      <Box sx={{
+        display: 'grid',
+        gridTemplateColumns: { xs: '1fr', md: '2fr 1fr' },
+        gap: 3,
+      }}>
+        <Box>
           <Card>
             <CardContent>
               <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
@@ -148,28 +150,28 @@ const ProfilePage: React.FC = () => {
                 )}
               </Box>
 
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    fullWidth
-                    label={language === 'pt' ? 'Nome' : 'Name'}
-                    value={formData.name}
-                    onChange={handleInputChange('name')}
-                    disabled={!editing}
-                    margin="normal"
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    fullWidth
-                    label={language === 'pt' ? 'Email' : 'Email'}
-                    value={formData.email}
-                    disabled
-                    margin="normal"
-                    helperText={language === 'pt' ? 'Email não pode ser alterado' : 'Email cannot be changed'}
-                  />
-                </Grid>
-              </Grid>
+              <Box sx={{
+                display: 'grid',
+                gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+                gap: 2,
+              }}>
+                <TextField
+                  fullWidth
+                  label={language === 'pt' ? 'Nome' : 'Name'}
+                  value={formData.name}
+                  onChange={handleInputChange('name')}
+                  disabled={!editing}
+                  margin="normal"
+                />
+                <TextField
+                  fullWidth
+                  label={language === 'pt' ? 'Email' : 'Email'}
+                  value={formData.email}
+                  disabled
+                  margin="normal"
+                  helperText={language === 'pt' ? 'Email não pode ser alterado' : 'Email cannot be changed'}
+                />
+              </Box>
 
               {editing && (
                 <Box sx={{ mt: 3, display: 'flex', gap: 1 }}>
@@ -196,9 +198,9 @@ const ProfilePage: React.FC = () => {
               )}
             </CardContent>
           </Card>
-        </Grid>
+        </Box>
 
-        <Grid item xs={12} md={4}>
+        <Box>
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
@@ -255,8 +257,8 @@ const ProfilePage: React.FC = () => {
               </Box>
             </CardContent>
           </Card>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </Box>
   );
 };

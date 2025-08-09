@@ -33,6 +33,30 @@ const TranscriptionPage: React.FC = () => {
     language,
   });
 
+  const handleDownload = () => {
+    if (!transcription || transcription.status !== 'completed') return;
+
+    const parts: string[] = [];
+    parts.push(`# ${language === 'pt' ? 'Transcrição' : 'Transcription'}\n`);
+    parts.push(transcription.transcription || '');
+    if (transcription.translation) {
+      parts.push(`\n\n# ${language === 'pt' ? 'Tradução' : 'Translation'}\n`);
+      parts.push(transcription.translation);
+    }
+
+    const content = parts.join('\n');
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    const baseName = (transcription.fileName || 'transcription').replace(/\.[^/.]+$/, '');
+    link.href = url;
+    link.download = `${baseName}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   const statusConfig = {
     uploading: {
       label: language === 'pt' ? 'Enviando' : 'Uploading',
@@ -211,6 +235,7 @@ const TranscriptionPage: React.FC = () => {
                   startIcon={<Download />}
                   disabled={transcription.status !== 'completed'}
                   fullWidth
+                  onClick={handleDownload}
                 >
                   {language === 'pt' ? 'Baixar Transcrição' : 'Download Transcription'}
                 </Button>
