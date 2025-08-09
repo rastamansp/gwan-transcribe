@@ -44,6 +44,15 @@ $ pnpm run start:dev
 $ pnpm run start:prod
 ```
 
+### Transcription Worker (Standalone)
+
+```bash
+# compila e executa o worker standalone
+pnpm run worker
+```
+
+Mais detalhes: consulte `doc/worker.md` na raiz do repositório.
+
 ## Run tests
 
 ```bash

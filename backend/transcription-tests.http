@@ -1,0 +1,88 @@
+### Gwan Transcribe - Transcription Module Tests
+### Testes específicos para o módulo de transcrição
+
+@baseUrl = http://localhost:3000/api/v1
+@testToken = test-token-pedro-almeida
+
+### Caminhos locais de arquivos de áudio para testes (ajuste conforme seu ambiente)
+@sampleMp3 = ./samples/sample.mp3
+@sampleWav = ./samples/sample.wav
+@invalidFile = ./samples/invalid.txt
+
+### ========================================
+### INSTRUÇÕES
+### ========================================
+### 1) Crie a pasta "samples" no diretório raiz do repositório ou ajuste os caminhos acima
+### 2) Coloque um arquivo de áudio válido (ex.: sample.mp3) para testar o upload
+### 3) Use o token de teste configurado (@testToken) para autenticar
+### 4) Execute primeiro os uploads; depois use o ID retornado para testar o GET por ID
+
+### ========================================
+### UPLOAD TRANSCRIPTION - SUCESSO (MP3 + idioma PT)
+### ========================================
+POST {{baseUrl}}/transcription/upload
+Authorization: Bearer {{testToken}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="sample.mp3"
+Content-Type: audio/mp3
+
+< {{sampleMp3}}
+--WebAppBoundary
+Content-Disposition: form-data; name="language"
+
+pt
+--WebAppBoundary--
+
+### ========================================
+### UPLOAD TRANSCRIPTION - ERRO (arquivo inválido)
+### ========================================
+POST {{baseUrl}}/transcription/upload
+Authorization: Bearer {{testToken}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="invalid.txt"
+Content-Type: text/plain
+
+< {{invalidFile}}
+--WebAppBoundary--
+
+### ========================================
+### UPLOAD TRANSCRIPTION - ERRO (sem token)
+### ========================================
+POST {{baseUrl}}/transcription/upload
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="sample.mp3"
+Content-Type: audio/mp3
+
+< {{sampleMp3}}
+--WebAppBoundary--
+
+### ========================================
+### LISTAR TRANSCRIÇÕES DO USUÁRIO (GET /transcription)
+### ========================================
+GET {{baseUrl}}/transcription
+Authorization: Bearer {{testToken}}
+
+### LISTAR TRANSCRIÇÕES - ERRO (sem token)
+GET {{baseUrl}}/transcription
+Authorization: Bearer {{testToken}}
+
+### ========================================
+### OBTER TRANSCRIÇÃO POR ID (GET /transcription/:id)
+### ========================================
+### Ajuste manualmente o ID abaixo conforme resposta do upload
+@lastTranscriptionId = 3ff14af4-ab4e-4ffe-b256-e07545c6cb16
+
+GET {{baseUrl}}/transcription/{{lastTranscriptionId}}
+Authorization: Bearer {{testToken}}
+
+### OBTER TRANSCRIÇÃO POR ID - ERRO (ID inexistente)
+GET {{baseUrl}}/transcription/3ff14af4-ab4e-4ffe-b256-e07545c6cb16
+Authorization: Bearer {{testToken}}
+
+

@@ -27,7 +27,7 @@ import { AppService } from './app.service';
 // Módulos da aplicação
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
-// import { TranscriptionModule } from './modules/transcription/transcription.module';
+import { TranscriptionModule } from './modules/transcription/transcription.module';
 // import { FileModule } from './modules/file/file.module';
 // import { HistoryModule } from './modules/history/history.module';
 
@@ -85,7 +85,7 @@ import { UserModule } from './modules/user/user.module';
     // Módulos da aplicação
     AuthModule,
     UserModule,
-    // TranscriptionModule,
+    TranscriptionModule,
     // FileModule,
     // HistoryModule,
   ],

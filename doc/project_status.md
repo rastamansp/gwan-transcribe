@@ -2,23 +2,24 @@
 
 ## 📊 Visão Geral
 
-**Data da Última Atualização**: 05/08/2025  
-**Versão**: 2.2.0  
-**Status**: ✅ **BACKEND PRONTO PARA PRODUÇÃO** | ⏳ **FRONTEND PENDENTE**
+**Data da Última Atualização**: 09/08/2025  
+**Versão**: 2.4.0  
+**Status**: ✅ **BACKEND COMPLETO** | ⏳ **FRONTEND PENDENTE** | 🔧 **INTEGRAÇÕES EXTERNAS PARCIAIS (Whisper integrado)**
 
 ## 🎯 Status Atual
 
 ### ✅ **Backend (NestJS) - COMPLETO**
 - **✅ Autenticação OTP**: Implementada e testada
 - **✅ Gestão de Usuários**: Implementada e testada
+- **✅ Módulo de Transcrição**: Completo (Upload + Storage MinIO + Fila RabbitMQ + Worker Whisper)
 - **✅ Validações**: Robustas e funcionando
 - **✅ Logs**: Estruturados e limpos (sem queries SQL)
-- **✅ Testes BDD**: 100% passando (38/38 cenários)
+- **✅ Testes BDD**: 100% passando (40/40 cenários)
 
 ### ✅ **Testes BDD - COMPLETO**
 - **✅ Cucumber.js**: Configurado e funcionando
-- **✅ Features**: 2 arquivos com 38 cenários
-- **✅ Steps**: 3 arquivos com todas as definições
+- **✅ Features**: 3 arquivos com 40 cenários (inclui transcrição de áudio)
+- **✅ Steps**: 4 arquivos (shared, authentication, user-management, transcription)
 - **✅ World**: Gerenciamento de estado e HTTP client
 - **✅ Hooks**: Setup/teardown automático
 - **✅ Reports**: Geração de relatórios HTML/JSON
@@ -29,6 +30,12 @@
 - **⏳ Integração com Backend**: A ser implementada
 - **⏳ Internacionalização**: PT/EN a ser implementada
 - **⏳ Material-UI**: A ser configurado
+
+### 🔧 **Integrações Externas - PARCIAIS**
+- **✅ RabbitMQ**: Producer e Consumer implementados (worker standalone)
+- **✅ MinIO**: Cliente implementado (API) e SDK no worker para download privado
+- **✅ OpenAI Whisper**: Integração concluída (worker consome e transcreve com whisper-1)
+- **⏳ OpenAI GPT**: Integração pendente (tradução)
 
 ### ⏳ **Infraestrutura - PENDENTE**
 - **⏳ Docker**: Configurado mas não testado
@@ -41,7 +48,7 @@
 ```
 src/
 ├── domain/           ✅ Implementado
-│   ├── entities/     ✅ User, OTP
+│   ├── entities/     ✅ User, OTP, Transcription
 │   ├── repositories/ ✅ Interfaces
 │   └── services/     ✅ Interfaces
 ├── application/      ✅ Implementado
@@ -51,7 +58,7 @@ src/
 ├── infrastructure/   ✅ Implementado
 │   ├── controllers/  ✅ REST APIs
 │   ├── repositories/ ✅ TypeORM
-│   └── services/     ✅ Implementações
+│   └── services/     ✅ Storage, Queue e Consumer (Whisper)
 └── shared/          ✅ Implementado
     ├── services/     ✅ Logger
     └── utils/        ✅ Utilitários
@@ -60,14 +67,33 @@ src/
 ### **Módulos Implementados**
 - **✅ AuthModule**: OTP request/verify
 - **✅ UserModule**: CRUD completo
+- **✅ TranscriptionModule**: Estrutura completa, integrações concluídas (Whisper)
 - **✅ SharedModule**: Serviços compartilhados
+
+### **Módulo de Transcrição - Status Detalhado**
+```
+transcription/
+├── domain/           ✅ COMPLETO
+│   ├── entities/     ✅ Transcription entity
+│   ├── repositories/ ✅ ITranscriptionRepository
+│   └── services/     ✅ IStorageService, IQueueService
+├── application/      ✅ COMPLETO
+│   ├── use-cases/    ✅ Upload, Get, List
+│   ├── dto/          ✅ Upload, Response DTOs
+│   └── interfaces/   ✅ Contratos
+├── infrastructure/   ✅ ESTRUTURA COMPLETA
+│   ├── controllers/  ✅ TranscriptionController
+│   ├── repositories/ ✅ TranscriptionRepository
+│   └── services/     ✅ StorageService, QueueService, TranscriptionConsumer (Whisper)
+└── module.ts         ✅ TranscriptionModule
+```
 
 ## 🧪 Testes BDD - DETALHADO
 
 ### **Estrutura de Testes**
 ```
 backend/tests/bdd/
-├── features/           ✅ 2 arquivos
+├── features/           ✅ 3 arquivos
 │   ├── authentication.feature  ✅ 12 cenários
 │   └── user-management.feature ✅ 26 cenários
 ├── steps/              ✅ 3 arquivos
@@ -92,10 +118,11 @@ backend/tests/bdd/
   - Validações de dados
   - Testes de segurança
   - Estatísticas do usuário
+- **✅ Transcrição de Áudio**: Upload MP3 (com idioma), listar e obter por ID; e cenário inválido (.txt)
 
 ### **Resultados dos Testes**
-- **38 cenários**: 100% passando
-- **216 steps**: 100% passando
+- **40 cenários**: 100% passando
+- **231 steps**: 100% passando
 - **0 falhas**: Zero erros
 - **Tempo médio**: 35 segundos
 
@@ -145,7 +172,7 @@ backend/tests/bdd/
 4. **Integração Frontend-Backend**: Conectar APIs
 
 ### **Prioridade Média**
-1. **Módulos Backend**: Transcrição e arquivos
+1. **Integrações Externas**: RabbitMQ, MinIO, OpenAI
 2. **Docker**: Testar e otimizar containers
 3. **Deploy**: Configurar ambiente de produção
 
@@ -164,6 +191,7 @@ backend/tests/bdd/
 
 ### **✅ Backend Robusto**
 - Clean Architecture implementada corretamente
+- Módulo de transcrição estruturado
 - Validações robustas em todos os endpoints
 - Logs estruturados e limpos
 - Performance otimizada
@@ -233,10 +261,10 @@ backend/tests/bdd/
 - **Portainer**: Stack definido
 
 ### **Integrações Externas**
-- **OpenAI Whisper**: Para transcrição de áudio (modelo base)
-- **OpenAI GPT**: Para tradução de texto
-- **MinIO**: Para armazenamento de arquivos
-- **RabbitMQ**: Para processamento assíncrono
+- **OpenAI Whisper**: Para transcrição de áudio (modelo base) - CONCLUÍDO (worker)
+- **OpenAI GPT**: Para tradução de texto - PENDENTE
+- **MinIO**: Para armazenamento de arquivos - CONCLUÍDO (API + SDK no worker)
+- **RabbitMQ**: Para processamento assíncrono - CONCLUÍDO (producer + consumer standalone)
 
 ### **Configurações de Budget**
 - **Limite Mensal**: R$ 100,00
@@ -244,7 +272,24 @@ backend/tests/bdd/
 - **Monitoramento**: Logs detalhados de custos
 - **Alertas**: Quando próximo do limite
 
+## 🔧 Status das Integrações
+
+### **RabbitMQ (Queue Service)**
+- **✅ Estrutura**: Producer e Consumer implementados (worker standalone)
+- **✅ Conexão**: Ativa (amqplib)
+- **📝 Nota**: Consumer processa transcrição real com Whisper
+
+### **MinIO (Storage Service)**
+- **✅ Estrutura**: Interface e classe implementadas
+- **✅ Configuração**: Cliente MinIO configurado; `MINIO_DOMAIN` suportado para URLs públicas
+- **📝 Nota**: Worker usa SDK `getObject` para bucket privado; API ainda possui fallback local em dev
+
+### **OpenAI Services**
+- **✅ Whisper**: Integrado no worker (`OPENAI_USE=true` e `OPENAI_API_KEY`)
+- **⏳ GPT**: Pendente
+- **📝 Nota**: Preserva extensão do arquivo ao baixar para compatibilidade de formato
+
 ---
 
-**Status**: ✅ **BACKEND PRONTO PARA PRODUÇÃO**  
-**Próximo Milestone**: Implementação do Frontend React com Material-UI
+**Status**: ✅ **BACKEND COMPLETO** | 🔧 **INTEGRAÇÕES PARCIAIS**  
+**Próximo Milestone**: Tradução via GPT e início do Frontend

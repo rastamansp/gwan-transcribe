@@ -5,6 +5,7 @@ Sistema de transcrição de áudio com autenticação OTP via email, desenvolvid
 ## 📊 Status do Projeto
 
 **✅ Backend Completo** - Testes BDD 100% passando (38/38 cenários)  
+**🔧 Módulo de Transcrição** - Estrutura implementada, integrações pendentes  
 **⏳ Frontend Pendente** - Interface React a ser implementada  
 **📅 Última Atualização**: 05/08/2025
 
@@ -19,6 +20,7 @@ Toda a documentação detalhada do projeto está organizada na pasta `/doc`:
 - **[📊 Status do Projeto](doc/project_status.md)** - Status atual de implementação e métricas de progresso
 - **[📝 Tarefas Detalhadas](doc/tasks.md)** - Lista completa de tarefas com status de execução
 - **[📋 PRD](doc/prd.md)** - Product Requirements Document completo
+- **[⚙️ Worker de Transcrição](doc/worker.md)** - Guia do processo standalone do worker
 - **[👤 Fluxo do Usuário](doc/user-flow.md)** - Fluxo completo de autenticação e transcrição
 - **[📊 Diagramas de Fluxo](doc/application-flow.md)** - Diagramas Mermaid da arquitetura e fluxos
 - **[📋 Índice de Diagramas](doc/diagrams-index.md)** - Guia rápido para navegar pelos diagramas

@@ -109,10 +109,10 @@ Sistema web de transcrição de áudio com autenticação OTP via email, permiti
 - **Backend**: NestJS + TypeScript
 - **Frontend**: React 18 + TypeScript + Vite + Material-UI
 - **Database**: PostgreSQL + TypeORM
-- **Storage**: MinIO bucket
-- **Transcrição**: OpenAI Whisper (modelo base)
+- **Storage**: MinIO bucket (API gera URL pública via `MINIO_DOMAIN`; worker usa SDK MinIO para buckets privados) – implementado
+- **Transcrição**: OpenAI Whisper (modelo base) – implementado no worker standalone
 - **Tradução**: OpenAI GPT
-- **Filas**: RabbitMQ
+- **Filas**: RabbitMQ (producer + consumer standalone) – implementado
 - **Package Manager**: pnpm
 - **Containerização**: Docker
 - **Orquestração**: Portainer
@@ -201,9 +201,9 @@ api_logs (
 #### 7.1 Upload e Transcrição
 
 1. Usuário faz upload do arquivo (máximo 20MB)
-2. Sistema valida arquivo e salva no MinIO
+2. Sistema valida arquivo e salva no MinIO (ou fallback local em dev)
 3. Sistema envia para fila RabbitMQ
-4. Worker processa transcrição via OpenAI Whisper (modelo base)
+4. Worker processa transcrição com OpenAI Whisper (modelo base) e atualiza status; em erro, marca `ERROR` sem fallback simulado
 5. Sistema detecta idioma automaticamente
 6. Sistema traduz se necessário via OpenAI GPT
 7. Sistema salva resultado no banco

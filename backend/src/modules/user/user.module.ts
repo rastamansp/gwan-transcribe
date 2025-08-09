@@ -88,6 +88,9 @@ import { IUserStatisticsService, USER_STATISTICS_SERVICE } from './domain/servic
     GetUserStatisticsUseCase,
     UserProfileRepository,
     UserStatisticsService,
+    // Exportar guards para uso em outros módulos (ex.: TranscriptionModule)
+    AuthGuard,
+    UserGuard,
   ],
 })
 export class UserModule {} 
