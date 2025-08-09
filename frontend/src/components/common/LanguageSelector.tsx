@@ -1,56 +1,45 @@
 import React from 'react';
-import { IconButton, Menu, MenuItem, Typography } from '@mui/material';
-import { Language } from '@mui/icons-material';
+import { IconButton } from '@radix-ui/themes';
+import { GlobeIcon } from '@radix-ui/react-icons';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const LanguageSelector: React.FC = () => {
   const { language, setLanguage, languages } = useLanguage();
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   const handleLanguageChange = (newLanguage: string) => {
     setLanguage(newLanguage as 'pt' | 'en');
-    handleClose();
   };
 
   return (
-    <>
-      <IconButton
-        size="large"
-        aria-label="select language"
-        aria-controls="language-menu"
-        aria-haspopup="true"
-        onClick={handleClick}
-        color="inherit"
-      >
-        <Language />
-      </IconButton>
-      <Menu
-        id="language-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        {languages.map((lang) => (
-          <MenuItem
-            key={lang.code}
-            onClick={() => handleLanguageChange(lang.code)}
-            selected={language === lang.code}
-          >
-            <Typography sx={{ mr: 1 }}>{lang.flag}</Typography>
-            {lang.name}
-          </MenuItem>
-        ))}
-      </Menu>
-    </>
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger asChild>
+        <IconButton aria-label="select language">
+          <GlobeIcon />
+        </IconButton>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Portal>
+        <DropdownMenu.Content sideOffset={8} align="end" style={{ background: 'white', borderRadius: 8, boxShadow: '0 4px 16px rgba(0,0,0,0.15)', padding: 4 }}>
+          {languages.map((lang) => (
+            <DropdownMenu.Item
+              key={lang.code}
+              onSelect={() => handleLanguageChange(lang.code)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '8px 12px',
+                borderRadius: 6,
+                background: language === lang.code ? 'rgba(25,118,210,0.08)' : 'transparent',
+                cursor: 'pointer',
+              }}
+            >
+              <span style={{ marginRight: 8 }}>{lang.flag}</span>
+              {lang.name}
+            </DropdownMenu.Item>
+          ))}
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
   );
 };
 

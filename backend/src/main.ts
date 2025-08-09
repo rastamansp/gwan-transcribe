@@ -15,11 +15,19 @@ async function bootstrap() {
   app.use(compression());
 
   // Configuração de CORS
+  const allowedOriginsEnv = configService.get<string>('ALLOWED_ORIGINS');
+  const allowedOrigins = allowedOriginsEnv
+    ? allowedOriginsEnv.split(',').map((o) => o.trim()).filter(Boolean)
+    : ['http://localhost:5173'];
+
   app.enableCors({
-    origin: process.env.NODE_ENV === 'production' 
-      ? ['https://transcribe.gwan.br'] 
-      : ['http://localhost:5173'],
+    origin: allowedOrigins,
     credentials: true,
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With'],
+    exposedHeaders: ['Content-Length', 'X-Request-Id'],
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
   });
 
   // Configuração de validação global

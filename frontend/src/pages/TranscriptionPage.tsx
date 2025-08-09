@@ -7,11 +7,10 @@ import {
   LinearProgress,
   Alert,
   Chip,
-  Grid,
-  Paper,
   Button,
   Divider,
   CircularProgress,
+  TextField,
 } from '@mui/material';
 import {
   Download,
@@ -19,6 +18,7 @@ import {
   CheckCircle,
   Error,
   Schedule,
+  ContentCopy,
 } from '@mui/icons-material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -32,6 +32,18 @@ const TranscriptionPage: React.FC = () => {
     id,
     language,
   });
+
+  const [copied, setCopied] = React.useState({ transcription: false, translation: false });
+
+  const copyToClipboard = async (text: string, key: 'transcription' | 'translation') => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied((prev) => ({ ...prev, [key]: true }));
+      setTimeout(() => setCopied((prev) => ({ ...prev, [key]: false })), 2000);
+    } catch {
+      // ignore
+    }
+  };
 
   const handleDownload = () => {
     if (!transcription || transcription.status !== 'completed') return;
@@ -150,8 +162,12 @@ const TranscriptionPage: React.FC = () => {
         </Button>
       </Box>
 
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={8}>
+      <Box sx={{
+        display: 'grid',
+        gridTemplateColumns: { xs: '1fr', md: '2fr 1fr' },
+        gap: 3,
+      }}>
+        <Box>
           <Card>
             <CardContent>
               <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
@@ -186,25 +202,49 @@ const TranscriptionPage: React.FC = () => {
               {transcription.status === 'completed' && (
                 <Box>
                   <Divider sx={{ my: 2 }} />
-                  <Typography variant="h6" gutterBottom>
-                    {language === 'pt' ? 'Transcrição' : 'Transcription'}
-                  </Typography>
-                  <Paper sx={{ p: 2, backgroundColor: 'grey.50', mb: 2 }}>
-                    <Typography variant="body1" sx={{ whiteSpace: 'pre-wrap' }}>
-                      {transcription.transcription || (language === 'pt' ? 'Nenhuma transcrição disponível' : 'No transcription available')}
+                  <Box display="flex" justifyContent="space-between" alignItems="center">
+                    <Typography variant="h6" gutterBottom>
+                      {language === 'pt' ? 'Transcrição' : 'Transcription'}
                     </Typography>
-                  </Paper>
+                    <Button
+                      size="small"
+                      startIcon={<ContentCopy />}
+                      onClick={() => copyToClipboard(transcription.transcription || '', 'transcription')}
+                    >
+                      {copied.transcription ? (language === 'pt' ? 'Copiado!' : 'Copied!') : (language === 'pt' ? 'Copiar' : 'Copy')}
+                    </Button>
+                  </Box>
+                  <TextField
+                    value={transcription.transcription || ''}
+                    placeholder={language === 'pt' ? 'Nenhuma transcrição disponível' : 'No transcription available'}
+                    fullWidth
+                    multiline
+                    minRows={8}
+                    InputProps={{ readOnly: true }}
+                    sx={{ mb: 2 }}
+                  />
 
                   {transcription.translation && (
                     <>
-                      <Typography variant="h6" gutterBottom>
-                        {language === 'pt' ? 'Tradução' : 'Translation'}
-                      </Typography>
-                      <Paper sx={{ p: 2, backgroundColor: 'grey.50' }}>
-                        <Typography variant="body1" sx={{ whiteSpace: 'pre-wrap' }}>
-                          {transcription.translation}
+                      <Box display="flex" justifyContent="space-between" alignItems="center">
+                        <Typography variant="h6" gutterBottom>
+                          {language === 'pt' ? 'Tradução' : 'Translation'}
                         </Typography>
-                      </Paper>
+                        <Button
+                          size="small"
+                          startIcon={<ContentCopy />}
+                          onClick={() => copyToClipboard(transcription.translation || '', 'translation')}
+                        >
+                          {copied.translation ? (language === 'pt' ? 'Copiado!' : 'Copied!') : (language === 'pt' ? 'Copiar' : 'Copy')}
+                        </Button>
+                      </Box>
+                      <TextField
+                        value={transcription.translation || ''}
+                        fullWidth
+                        multiline
+                        minRows={6}
+                        InputProps={{ readOnly: true }}
+                      />
                     </>
                   )}
                 </Box>
@@ -220,9 +260,9 @@ const TranscriptionPage: React.FC = () => {
               )}
             </CardContent>
           </Card>
-        </Grid>
+        </Box>
 
-        <Grid item xs={12} md={4}>
+        <Box>
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
@@ -250,8 +290,8 @@ const TranscriptionPage: React.FC = () => {
               </Box>
             </CardContent>
           </Card>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </Box>
   );
 };

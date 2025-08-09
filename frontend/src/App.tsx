@@ -1,10 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, Box } from '@mui/material';
+import { Theme, Box } from '@radix-ui/themes';
 import { QueryClient, QueryClientProvider } from 'react-query';
-
-import { theme } from './theme';
 import { AuthProvider } from './contexts/AuthContext';
 import { LanguageProvider } from './contexts/LanguageContext';
 
@@ -33,12 +30,11 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+      <Theme>
         <LanguageProvider>
           <AuthProvider>
             <Router>
-              <Box sx={{ minHeight: '100vh', backgroundColor: 'background.default' }}>
+              <Box style={{ minHeight: '100vh' }}>
                 <Routes>
                   {/* Public routes */}
                   <Route path="/login" element={<LoginPage />} />
@@ -102,7 +98,7 @@ function App() {
             </Router>
           </AuthProvider>
         </LanguageProvider>
-      </ThemeProvider>
+      </Theme>
     </QueryClientProvider>
   );
 }
