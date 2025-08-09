@@ -137,3 +137,24 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Monorepo specifics
+backend/tmp/
+backend/backend/
+backend/samples/
+backend/uploads/
+backend/transcription.json
+backend/tests/bdd/reports/
+backend/transcription-tests.http
+backend/user-tests.http
+backend/http-tests.http
+samples/
+
+# OS-specific
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.Spotlight-V100
+.Trashes
+*.swp
+.idea/
