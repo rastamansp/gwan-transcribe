@@ -1,28 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Box,
-  Typography,
-  Card,
-  CardContent,
-  Grid,
-  Chip,
-  Button,
-  Alert,
-  CircularProgress,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-} from '@mui/material';
-import {
-  History,
-  Download,
-  Visibility,
-  Refresh,
-} from '@mui/icons-material';
+  Card, 
+  Text, 
+  Button, 
+  Badge, 
+  Flex
+} from '@radix-ui/themes';
+import { 
+  ClockIcon, 
+  DownloadIcon, 
+  EyeOpenIcon, 
+  UpdateIcon 
+} from '@radix-ui/react-icons';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { apiService } from '@/services/api';
@@ -38,27 +27,27 @@ const HistoryPage: React.FC = () => {
   const statusConfig = {
     uploading: {
       label: language === 'pt' ? 'Enviando' : 'Uploading',
-      color: 'info' as const,
+      color: 'blue' as const,
     },
     processing: {
       label: language === 'pt' ? 'Processando' : 'Processing',
-      color: 'warning' as const,
+      color: 'yellow' as const,
     },
     transcribing: {
       label: language === 'pt' ? 'Transcrevendo' : 'Transcribing',
-      color: 'primary' as const,
+      color: 'blue' as const,
     },
     translating: {
       label: language === 'pt' ? 'Traduzindo' : 'Translating',
-      color: 'secondary' as const,
+      color: 'purple' as const,
     },
     completed: {
       label: language === 'pt' ? 'Concluído' : 'Completed',
-      color: 'success' as const,
+      color: 'green' as const,
     },
     error: {
       label: language === 'pt' ? 'Erro' : 'Error',
-      color: 'error' as const,
+      color: 'red' as const,
     },
   };
 
@@ -71,7 +60,7 @@ const HistoryPage: React.FC = () => {
       } else {
         throw new Error(response.message || 'Failed to fetch transcriptions');
       }
-    } catch (error) {
+    } catch {
       setError(
         language === 'pt' 
           ? 'Erro ao carregar histórico' 
@@ -100,138 +89,131 @@ const HistoryPage: React.FC = () => {
     );
   };
 
-  const handleViewTranscription = (id: string) => {
-    navigate(`/transcription/${id}`);
-  };
-
   if (loading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
-        <CircularProgress />
-      </Box>
+      <div className="p-6">
+        <div className="flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        </div>
+      </div>
     );
   }
 
   return (
-    <Box>
-      <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
-        <Typography variant="h4" component="h1">
+    <div className="p-6">
+      <Flex align="center" justify="between" className="mb-6">
+        <Text as="div" weight="bold" className="text-2xl">
           {language === 'pt' ? 'Histórico de Transcrições' : 'Transcription History'}
-        </Typography>
-        <Button
-          variant="outlined"
-          startIcon={<Refresh />}
-          onClick={fetchTranscriptions}
-        >
+        </Text>
+        <Button onClick={fetchTranscriptions} variant="outline" className="flex items-center gap-2">
+          <UpdateIcon className="w-4 h-4" />
           {language === 'pt' ? 'Atualizar' : 'Refresh'}
         </Button>
-      </Box>
+      </Flex>
 
       {error && (
-        <Alert severity="error" sx={{ mb: 2 }}>
+        <Badge color="red" variant="soft" className="mb-4 block">
           {error}
-        </Alert>
+        </Badge>
       )}
 
       {transcriptions.length === 0 ? (
-        <Card>
-          <CardContent sx={{ textAlign: 'center', py: 4 }}>
-            <History sx={{ fontSize: 64, color: 'text.secondary', mb: 2 }} />
-            <Typography variant="h6" gutterBottom>
-              {language === 'pt' ? 'Nenhuma transcrição encontrada' : 'No transcriptions found'}
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-              {language === 'pt' 
-                ? 'Faça seu primeiro upload para começar a usar o sistema' 
-                : 'Make your first upload to start using the system'
-              }
-            </Typography>
-            <Button
-              variant="contained"
-              onClick={() => navigate('/upload')}
-              startIcon={<History />}
-            >
-              {language === 'pt' ? 'Fazer Upload' : 'Upload File'}
-            </Button>
-          </CardContent>
+        <Card className="p-8 text-center">
+          <ClockIcon className="text-gray-400 text-4xl mx-auto mb-4" />
+          <Text as="p" size="5" color="gray" className="mb-2">
+            {language === 'pt' ? 'Nenhuma transcrição encontrada' : 'No transcriptions found'}
+          </Text>
+          <Text as="p" color="gray">
+            {language === 'pt' 
+              ? 'Faça upload de um arquivo de áudio para começar' 
+              : 'Upload an audio file to get started'
+            }
+          </Text>
         </Card>
       ) : (
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  {language === 'pt' ? 'Arquivo' : 'File'}
-                </TableCell>
-                <TableCell>
-                  {language === 'pt' ? 'Tamanho' : 'Size'}
-                </TableCell>
-                <TableCell>
-                  {language === 'pt' ? 'Status' : 'Status'}
-                </TableCell>
-                <TableCell>
-                  {language === 'pt' ? 'Data' : 'Date'}
-                </TableCell>
-                <TableCell align="right">
-                  {language === 'pt' ? 'Ações' : 'Actions'}
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {transcriptions.map((transcription) => {
-                const status = statusConfig[transcription.status];
-                return (
-                  <TableRow key={transcription.id} hover>
-                    <TableCell>
-                      <Typography variant="body2" fontWeight="medium">
+        <Card>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-gray-200">
+                  <th className="text-left p-4 font-medium">
+                    {language === 'pt' ? 'Arquivo' : 'File'}
+                  </th>
+                  <th className="text-left p-4 font-medium">
+                    {language === 'pt' ? 'Status' : 'Status'}
+                  </th>
+                  <th className="text-left p-4 font-medium">
+                    {language === 'pt' ? 'Tamanho' : 'Size'}
+                  </th>
+                  <th className="text-left p-4 font-medium">
+                    {language === 'pt' ? 'Data' : 'Date'}
+                  </th>
+                  <th className="text-left p-4 font-medium">
+                    {language === 'pt' ? 'Ações' : 'Actions'}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {transcriptions.map((transcription) => (
+                  <tr key={transcription.id} className="border-b border-gray-100 hover:bg-gray-50">
+                    <td className="p-4">
+                      <Text weight="medium">
                         {transcription.fileName}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="body2" color="text.secondary">
+                      </Text>
+                    </td>
+                    <td className="p-4">
+                      <Badge 
+                        color={statusConfig[transcription.status]?.color || 'gray'} 
+                        variant="soft"
+                      >
+                        {statusConfig[transcription.status]?.label || transcription.status}
+                      </Badge>
+                    </td>
+                    <td className="p-4">
+                      <Text color="gray">
                         {formatFileSize(transcription.fileSize)}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Chip
-                        label={status.label}
-                        color={status.color}
-                        size="small"
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="body2" color="text.secondary">
+                      </Text>
+                    </td>
+                    <td className="p-4">
+                      <Text color="gray">
                         {formatDate(transcription.createdAt)}
-                      </Typography>
-                    </TableCell>
-                    <TableCell align="right">
-                      <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end' }}>
-                        <Button
-                          size="small"
-                          startIcon={<Visibility />}
-                          onClick={() => handleViewTranscription(transcription.id)}
+                      </Text>
+                    </td>
+                    <td className="p-4">
+                      <Flex gap="2">
+                        <Button 
+                          size="1" 
+                          variant="outline"
+                          onClick={() => navigate(`/transcription/${transcription.id}`)}
+                          className="flex items-center gap-2"
                         >
+                          <EyeOpenIcon className="w-4 h-4" />
                           {language === 'pt' ? 'Ver' : 'View'}
                         </Button>
                         {transcription.status === 'completed' && (
-                          <Button
-                            size="small"
-                            startIcon={<Download />}
-                            variant="outlined"
+                          <Button 
+                            size="1" 
+                            variant="outline"
+                            onClick={() => {
+                              // Implementar download
+                              console.log('Download:', transcription.id);
+                            }}
+                            className="flex items-center gap-2"
                           >
+                            <DownloadIcon className="w-4 h-4" />
                             {language === 'pt' ? 'Baixar' : 'Download'}
                           </Button>
                         )}
-                      </Box>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
+                      </Flex>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
       )}
-    </Box>
+    </div>
   );
 };
 

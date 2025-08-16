@@ -1,74 +1,97 @@
-import { createTheme } from '@mui/material/styles';
-
-export const theme = createTheme({
-  palette: {
+// Tema baseado em Radix UI e Tailwind CSS
+export const theme = {
+  colors: {
     primary: {
-      main: '#1976d2',
-      light: '#42a5f5',
-      dark: '#1565c0',
+      50: '#eff6ff',
+      100: '#dbeafe',
+      500: '#3b82f6',
+      600: '#2563eb',
+      700: '#1d4ed8',
+      900: '#1e3a8a',
     },
     secondary: {
-      main: '#dc004e',
-      light: '#ff5983',
-      dark: '#9a0036',
+      50: '#fdf2f8',
+      100: '#fce7f3',
+      500: '#ec4899',
+      600: '#db2777',
+      700: '#be185d',
+      900: '#831843',
     },
-    background: {
-      default: '#f5f5f5',
-      paper: '#ffffff',
+    gray: {
+      50: '#f9fafb',
+      100: '#f3f4f6',
+      200: '#e5e7eb',
+      300: '#d1d5db',
+      400: '#9ca3af',
+      500: '#6b7280',
+      600: '#4b5563',
+      700: '#374151',
+      800: '#1f2937',
+      900: '#111827',
     },
+    success: {
+      50: '#f0fdf4',
+      500: '#22c55e',
+      600: '#16a34a',
+    },
+    error: {
+      50: '#fef2f2',
+      500: '#ef4444',
+      600: '#dc2626',
+    },
+    warning: {
+      50: '#fffbeb',
+      500: '#f59e0b',
+      600: '#d97706',
+    },
+  },
+  spacing: {
+    xs: '0.25rem',
+    sm: '0.5rem',
+    md: '1rem',
+    lg: '1.5rem',
+    xl: '2rem',
+    '2xl': '3rem',
+    '3xl': '4rem',
+  },
+  borderRadius: {
+    sm: '0.25rem',
+    md: '0.5rem',
+    lg: '0.75rem',
+    xl: '1rem',
+    '2xl': '1.5rem',
+    full: '9999px',
+  },
+  shadows: {
+    sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+    md: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+    lg: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+    xl: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
   },
   typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    h1: {
-      fontSize: '2.5rem',
-      fontWeight: 300,
+    fontFamily: {
+      sans: ['Inter', 'system-ui', 'sans-serif'],
+      mono: ['JetBrains Mono', 'monospace'],
     },
-    h2: {
-      fontSize: '2rem',
-      fontWeight: 300,
+    fontSize: {
+      xs: '0.75rem',
+      sm: '0.875rem',
+      base: '1rem',
+      lg: '1.125rem',
+      xl: '1.25rem',
+      '2xl': '1.5rem',
+      '3xl': '1.875rem',
+      '4xl': '2.25rem',
+      '5xl': '3rem',
+      '6xl': '3.75rem',
     },
-    h3: {
-      fontSize: '1.75rem',
-      fontWeight: 400,
-    },
-    h4: {
-      fontSize: '1.5rem',
-      fontWeight: 400,
-    },
-    h5: {
-      fontSize: '1.25rem',
-      fontWeight: 400,
-    },
-    h6: {
-      fontSize: '1rem',
-      fontWeight: 500,
-    },
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
-          borderRadius: 8,
-        },
-      },
-    },
-    MuiCard: {
-      styleOverrides: {
-        root: {
-          borderRadius: 12,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-        },
-      },
-    },
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          '& .MuiOutlinedInput-root': {
-            borderRadius: 8,
-          },
-        },
-      },
+    fontWeight: {
+      light: '300',
+      normal: '400',
+      medium: '500',
+      semibold: '600',
+      bold: '700',
+      extrabold: '800',
     },
   },
-}); 
+}; 

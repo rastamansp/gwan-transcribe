@@ -1,4 +1,4 @@
-import React from 'react';
+import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Theme, Box } from '@radix-ui/themes';
 import { QueryClient, QueryClientProvider } from 'react-query';

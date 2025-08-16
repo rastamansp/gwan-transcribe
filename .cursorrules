@@ -235,6 +235,12 @@ src/modules/user/
 
 ## Regras Específicas
 
+### Comandos PowerShell
+- **IMPORTANTE**: NUNCA usar `&&` em comandos PowerShell
+- **CORRETO**: Usar `;` para separar comandos (ex: `cd backend; pnpm run dev`)
+- **INCORRETO**: `cd backend && pnpm run dev` (causa erro de sintaxe)
+- **ALTERNATIVA**: Executar comandos separadamente ou usar `;` para sequência
+
 ### Não Criar
 - Testes unitários (conforme especificação)
 - Código duplicado

@@ -1,25 +1,18 @@
 import React from 'react';
 import {
-  Box,
-  Typography,
+  Text,
   Card,
-  CardContent,
-  LinearProgress,
-  Alert,
-  Chip,
-  Button,
-  Divider,
-  CircularProgress,
-  TextField,
-} from '@mui/material';
+  Badge,
+  Button
+} from '@radix-ui/themes';
 import {
-  Download,
-  Refresh,
-  CheckCircle,
-  Error,
-  Schedule,
-  ContentCopy,
-} from '@mui/icons-material';
+  DownloadIcon,
+  UpdateIcon,
+  CheckCircledIcon,
+  CrossCircledIcon,
+  ClockIcon,
+  CopyIcon,
+} from '@radix-ui/react-icons';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTranscription } from '@/hooks/useTranscription';
@@ -72,227 +65,265 @@ const TranscriptionPage: React.FC = () => {
   const statusConfig = {
     uploading: {
       label: language === 'pt' ? 'Enviando' : 'Uploading',
-      color: 'info' as const,
-      icon: <Schedule />,
+      color: 'blue' as const,
+      icon: <ClockIcon className="w-4 h-4" />,
     },
     processing: {
       label: language === 'pt' ? 'Processando' : 'Processing',
-      color: 'warning' as const,
-      icon: <CircularProgress size={16} />,
+      color: 'yellow' as const,
+      icon: <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-yellow-600"></div>,
     },
     transcribing: {
       label: language === 'pt' ? 'Transcrevendo' : 'Transcribing',
-      color: 'primary' as const,
-      icon: <CircularProgress size={16} />,
+      color: 'blue' as const,
+      icon: <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>,
     },
     translating: {
       label: language === 'pt' ? 'Traduzindo' : 'Translating',
-      color: 'secondary' as const,
-      icon: <CircularProgress size={16} />,
+      color: 'purple' as const,
+      icon: <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-600"></div>,
     },
     completed: {
       label: language === 'pt' ? 'Concluído' : 'Completed',
-      color: 'success' as const,
-      icon: <CheckCircle />,
+      color: 'green' as const,
+      icon: <CheckCircledIcon className="w-4 h-4" />,
     },
     error: {
       label: language === 'pt' ? 'Erro' : 'Error',
-      color: 'error' as const,
-      icon: <Error />,
+      color: 'red' as const,
+      icon: <CrossCircledIcon className="w-4 h-4" />,
     },
-  };
-
-  const formatFileSize = (bytes: number) => {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-  };
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleString(
-      language === 'pt' ? 'pt-BR' : 'en-US'
-    );
   };
 
   if (loading) {
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
-        <CircularProgress />
-      </Box>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <Text as="div" className="text-xl text-slate-600 dark:text-slate-300">
+            {language === 'pt' ? 'Carregando transcrição...' : 'Loading transcription...'}
+          </Text>
+        </div>
+      </div>
     );
   }
 
   if (error || !transcription) {
     return (
-      <Box>
-        <Alert severity="error" sx={{ mb: 2 }}>
-          {error || (language === 'pt' ? 'Transcrição não encontrada' : 'Transcription not found')}
-        </Alert>
-        <Button
-          variant="contained"
-          onClick={() => navigate('/upload')}
-          sx={{ mr: 1 }}
-        >
-          {language === 'pt' ? 'Fazer Upload' : 'Upload File'}
-        </Button>
-        <Button variant="outlined" onClick={refresh}>
-          {language === 'pt' ? 'Tentar Novamente' : 'Try Again'}
-        </Button>
-      </Box>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 flex items-center justify-center p-6">
+        <Card className="card-modern max-w-md w-full text-center">
+          <CrossCircledIcon className="text-red-500 text-6xl mx-auto mb-6" />
+          <Text as="div" className="text-2xl font-bold text-slate-800 mb-4">
+            {language === 'pt' ? 'Erro ao carregar transcrição' : 'Error loading transcription'}
+          </Text>
+          <Text as="div" className="text-slate-600 mb-6">
+            {error || (language === 'pt' ? 'Transcrição não encontrada' : 'Transcription not found')}
+          </Text>
+          <Button 
+            onClick={() => navigate('/history')}
+            className="btn-primary"
+          >
+            {language === 'pt' ? 'Voltar ao Histórico' : 'Back to History'}
+          </Button>
+        </Card>
+      </div>
     );
   }
 
-  const status = statusConfig[transcription.status];
+  const status = statusConfig[transcription.status] || statusConfig.error;
 
   return (
-    <Box>
-      <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
-        <Typography variant="h4" component="h1">
-          {language === 'pt' ? 'Transcrição' : 'Transcription'}
-        </Typography>
-        <Button
-          variant="outlined"
-          startIcon={<Refresh />}
-          onClick={refresh}
-          disabled={polling}
-        >
-          {language === 'pt' ? 'Atualizar' : 'Refresh'}
-        </Button>
-      </Box>
-
-      <Box sx={{
-        display: 'grid',
-        gridTemplateColumns: { xs: '1fr', md: '2fr 1fr' },
-        gap: 3,
-      }}>
-        <Box>
-          <Card>
-            <CardContent>
-              <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
-                <Typography variant="h6">
-                  {transcription.fileName}
-                </Typography>
-                <Chip
-                  label={status.label}
-                  color={status.color}
-                  icon={status.icon}
-                />
-              </Box>
-
-              <Box sx={{ mb: 2 }}>
-                <Typography variant="body2" color="text.secondary">
-                  {language === 'pt' ? 'Tamanho:' : 'Size:'} {formatFileSize(transcription.fileSize)}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {language === 'pt' ? 'Criado em:' : 'Created:'} {formatDate(transcription.createdAt)}
-                </Typography>
-              </Box>
-
-              {['uploading', 'processing', 'transcribing', 'translating'].includes(transcription.status) && (
-                <Box sx={{ mb: 2 }}>
-                  <LinearProgress />
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                    {language === 'pt' ? 'Processando...' : 'Processing...'}
-                  </Typography>
-                </Box>
-              )}
-
-              {transcription.status === 'completed' && (
-                <Box>
-                  <Divider sx={{ my: 2 }} />
-                  <Box display="flex" justifyContent="space-between" alignItems="center">
-                    <Typography variant="h6" gutterBottom>
-                      {language === 'pt' ? 'Transcrição' : 'Transcription'}
-                    </Typography>
-                    <Button
-                      size="small"
-                      startIcon={<ContentCopy />}
-                      onClick={() => copyToClipboard(transcription.transcription || '', 'transcription')}
-                    >
-                      {copied.transcription ? (language === 'pt' ? 'Copiado!' : 'Copied!') : (language === 'pt' ? 'Copiar' : 'Copy')}
-                    </Button>
-                  </Box>
-                  <TextField
-                    value={transcription.transcription || ''}
-                    placeholder={language === 'pt' ? 'Nenhuma transcrição disponível' : 'No transcription available'}
-                    fullWidth
-                    multiline
-                    minRows={8}
-                    InputProps={{ readOnly: true }}
-                    sx={{ mb: 2 }}
-                  />
-
-                  {transcription.translation && (
-                    <>
-                      <Box display="flex" justifyContent="space-between" alignItems="center">
-                        <Typography variant="h6" gutterBottom>
-                          {language === 'pt' ? 'Tradução' : 'Translation'}
-                        </Typography>
-                        <Button
-                          size="small"
-                          startIcon={<ContentCopy />}
-                          onClick={() => copyToClipboard(transcription.translation || '', 'translation')}
-                        >
-                          {copied.translation ? (language === 'pt' ? 'Copiado!' : 'Copied!') : (language === 'pt' ? 'Copiar' : 'Copy')}
-                        </Button>
-                      </Box>
-                      <TextField
-                        value={transcription.translation || ''}
-                        fullWidth
-                        multiline
-                        minRows={6}
-                        InputProps={{ readOnly: true }}
-                      />
-                    </>
-                  )}
-                </Box>
-              )}
-
-              {transcription.status === 'error' && (
-                <Alert severity="error" sx={{ mt: 2 }}>
-                  {language === 'pt' 
-                    ? 'Erro durante o processamento da transcrição' 
-                    : 'Error during transcription processing'
-                  }
-                </Alert>
-              )}
-            </CardContent>
-          </Card>
-        </Box>
-
-        <Box>
-          <Card>
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                {language === 'pt' ? 'Ações' : 'Actions'}
-              </Typography>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+      <div className="max-w-7xl mx-auto p-6">
+        {/* Header */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <Text as="div" className="text-4xl font-bold text-slate-900 dark:text-white mb-2">
+                {language === 'pt' ? 'Transcrição' : 'Transcription'}
+              </Text>
+              <Text as="div" className="text-slate-600 dark:text-slate-300">
+                {language === 'pt' 
+                  ? 'Visualize e gerencie sua transcrição de áudio' 
+                  : 'View and manage your audio transcription'
+                }
+              </Text>
+            </div>
+            
+            <div className="flex gap-3">
+              <Button 
+                variant="outline" 
+                onClick={refresh}
+                className="btn-outline flex items-center gap-2"
+              >
+                <UpdateIcon className="w-4 h-4" />
+                {language === 'pt' ? 'Atualizar' : 'Refresh'}
+              </Button>
               
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                <Button
-                  variant="contained"
-                  startIcon={<Download />}
-                  disabled={transcription.status !== 'completed'}
-                  fullWidth
+              {transcription.status === 'completed' && (
+                <Button 
                   onClick={handleDownload}
+                  className="btn-primary flex items-center gap-2"
                 >
-                  {language === 'pt' ? 'Baixar Transcrição' : 'Download Transcription'}
+                  <DownloadIcon className="w-4 h-4" />
+                  {language === 'pt' ? 'Baixar' : 'Download'}
                 </Button>
-                
-                <Button
-                  variant="outlined"
-                  onClick={() => navigate('/upload')}
-                  fullWidth
-                >
-                  {language === 'pt' ? 'Novo Upload' : 'New Upload'}
-                </Button>
-              </Box>
-            </CardContent>
-          </Card>
-        </Box>
-      </Box>
-    </Box>
+              )}
+            </div>
+          </div>
+
+          {/* Status Badge */}
+          <div className="flex items-center gap-3 mb-6">
+            <Badge color={status.color} variant="soft" className="text-lg px-4 py-2 flex items-center gap-2">
+              {status.icon}
+              <span>{status.label}</span>
+            </Badge>
+            {polling && (
+              <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+                <div className="animate-pulse w-2 h-2 bg-blue-500 rounded-full"></div>
+                <span>{language === 'pt' ? 'Atualizando...' : 'Updating...'}</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main Content */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* File Info Card */}
+            <Card className="card-modern">
+              <div className="p-6">
+                <div className="mb-6">
+                  <Text as="div" className="text-lg font-semibold text-slate-800 mb-2">
+                    {language === 'pt' ? 'Informações do Arquivo' : 'File Information'}
+                  </Text>
+                  <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                    <Text as="div" className="text-slate-600 dark:text-slate-300">
+                      {transcription.fileName || 'N/A'}
+                    </Text>
+                  </div>
+                </div>
+
+                {transcription.status === 'completed' && (
+                  <>
+                    {/* Transcription Section */}
+                    <div className="mb-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <Text as="div" className="text-xl font-semibold text-slate-800">
+                          {language === 'pt' ? 'Transcrição' : 'Transcription'}
+                        </Text>
+                        <Button 
+                          size="2" 
+                          variant="outline"
+                          onClick={() => copyToClipboard(transcription.transcription || '', 'transcription')}
+                          className="btn-outline"
+                        >
+                          <CopyIcon className="w-4 h-4 mr-2" />
+                          {copied.transcription 
+                            ? (language === 'pt' ? 'Copiado!' : 'Copied!') 
+                            : (language === 'pt' ? 'Copiar' : 'Copy')
+                          }
+                        </Button>
+                      </div>
+                      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-6 rounded-xl border border-blue-200/50 dark:border-blue-700/30">
+                        <Text as="div" className="text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-relaxed">
+                          {transcription.transcription || ''}
+                        </Text>
+                      </div>
+                    </div>
+
+                    {/* Translation Section */}
+                    {transcription.translation && (
+                      <div className="mb-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <Text as="div" className="text-xl font-semibold text-slate-800">
+                            {language === 'pt' ? 'Tradução' : 'Translation'}
+                          </Text>
+                          <Button 
+                            size="2" 
+                            variant="outline"
+                            onClick={() => copyToClipboard(transcription.translation || '', 'translation')}
+                            className="btn-outline"
+                          >
+                            <CopyIcon className="w-4 h-4 mr-2" />
+                            {copied.translation 
+                              ? (language === 'pt' ? 'Copiado!' : 'Copied!') 
+                              : (language === 'pt' ? 'Copiar' : 'Copy')
+                            }
+                          </Button>
+                        </div>
+                        <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-xl border border-green-200/50 dark:border-green-700/30">
+                          <Text as="div" className="text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-relaxed">
+                            {transcription.translation}
+                          </Text>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
+
+                {transcription.status === 'error' && (
+                  <div className="bg-gradient-to-r from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 p-6 rounded-xl border border-red-200/50 dark:border-red-700/30">
+                    <Text as="div" className="text-red-800 dark:text-red-200 text-center">
+                      {language === 'pt' ? 'Erro durante o processamento' : 'Error during processing'}
+                    </Text>
+                  </div>
+                )}
+              </div>
+            </Card>
+          </div>
+
+          {/* Sidebar */}
+          <div>
+            <Card className="card-modern sticky top-24">
+              <div className="p-6">
+                <Text as="div" className="text-xl font-semibold text-slate-800 mb-6">
+                  {language === 'pt' ? 'Detalhes' : 'Details'}
+                </Text>
+
+                <div className="space-y-6">
+                  {/* Status */}
+                  <div>
+                    <Text as="div" className="text-sm text-slate-600 dark:text-slate-400 mb-2">
+                      {language === 'pt' ? 'Status' : 'Status'}
+                    </Text>
+                    <Badge color={status.color} variant="soft" className="text-base px-3 py-2 flex items-center gap-2">
+                      {status.icon}
+                      <span>{status.label}</span>
+                    </Badge>
+                  </div>
+
+                  {/* File Size */}
+                  <div>
+                    <Text as="div" className="text-sm text-slate-600 dark:text-slate-400 mb-2">
+                      {language === 'pt' ? 'Tamanho do arquivo' : 'File size'}
+                    </Text>
+                    <Text as="div" className="text-lg font-semibold text-slate-800 dark:text-slate-200">
+                      {transcription.fileSize ? `${(transcription.fileSize / 1024 / 1024).toFixed(2)} MB` : 'N/A'}
+                    </Text>
+                  </div>
+
+                  {/* Created At */}
+                  <div>
+                    <Text as="div" className="text-sm text-slate-600 dark:text-slate-400 mb-2">
+                      {language === 'pt' ? 'Data de criação' : 'Created at'}
+                    </Text>
+                    <Text as="div" className="text-lg font-semibold text-slate-800 dark:text-slate-200">
+                      {transcription.createdAt 
+                        ? new Date(transcription.createdAt).toLocaleString(
+                            language === 'pt' ? 'pt-BR' : 'en-US'
+                          )
+                        : 'N/A'
+                      }
+                    </Text>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
