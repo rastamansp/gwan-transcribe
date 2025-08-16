@@ -3,9 +3,7 @@ version: '3.8'
 services:
   # Backend API
   api:
-    build: 
-      context: ./backend
-      dockerfile: Dockerfile.prod
+    image: gwan-transcribe-api:latest
     environment:
       - NODE_ENV=production
       - DATABASE_URL=${DATABASE_URL}
@@ -25,8 +23,19 @@ services:
       - OPENAI_USE=${OPENAI_USE}
       - JWT_SECRET=${JWT_SECRET}
       - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
-    ports:
-      - "3000:3000"
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
+        reservations:
+          memory: 512M
+          cpus: '0.25'
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/api/v1/health"]
       interval: 30s
@@ -36,16 +45,23 @@ services:
 
   # Frontend
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile.prod
+    image: gwan-transcribe-frontend:latest
     environment:
       - VITE_API_URL=https://api.transcribe.gwan.com.br
       - VITE_APP_NAME=Gwan Transcribe
-    ports:
-      - "8080:80"
-    depends_on:
-      - api
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.25'
+        reservations:
+          memory: 256M
+          cpus: '0.1'
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:80"]
       interval: 30s
@@ -55,9 +71,7 @@ services:
 
   # Worker de Transcrição
   worker:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile.worker
+    image: gwan-transcribe-worker:latest
     environment:
       - NODE_ENV=production
       - DATABASE_URL=${DATABASE_URL}
@@ -71,8 +85,19 @@ services:
       - AZURE_OPENAI_API_KEY=${AZURE_OPENAI_API_KEY}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - OPENAI_USE=${OPENAI_USE}
-    depends_on:
-      - api
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
+        reservations:
+          memory: 512M
+          cpus: '0.25'
     healthcheck:
       test: ["CMD", "pgrep", "-f", "worker.main.js"]
       interval: 30s
@@ -82,4 +107,5 @@ services:
 
 networks:
   default:
-    name: gwan-transcribe-prod 
+    external: true
+    name: gwan

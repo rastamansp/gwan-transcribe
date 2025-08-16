@@ -1,0 +1,54 @@
+# Dockerfile de Produção - Worker Gwan Transcribe
+FROM node:20-alpine AS builder
+
+# Instalar dependências de build
+RUN apk add --no-cache python3 make g++
+
+# Definir diretório de trabalho
+WORKDIR /app
+
+# Copiar arquivos de dependências
+COPY package*.json ./
+
+# Instalar dependências
+RUN npm install --legacy-peer-deps
+
+# Copiar código fonte
+COPY . .
+
+# Build da aplicação
+RUN npm run build
+
+# Remover dependências de desenvolvimento
+RUN npm prune --production --legacy-peer-deps
+
+# Imagem de produção
+FROM node:20-alpine
+
+# Instalar ferramentas para health checks
+RUN apk add --no-cache procps
+
+# Criar usuário não-root
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nestjs -u 1001
+
+# Definir diretório de trabalho
+WORKDIR /app
+
+# Criar diretório logs com permissões corretas
+RUN mkdir -p logs && chown -R nestjs:nodejs logs
+
+# Copiar arquivos buildados e dependências
+COPY --from=builder --chown=nestjs:nodejs /app/dist ./dist
+COPY --from=builder --chown=nestjs:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=nestjs:nodejs /app/package*.json ./
+
+# Mudar para usuário não-root
+USER nestjs
+
+# Health check - verificar se o processo worker está rodando
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+  CMD pgrep -f "worker.main.js" || exit 1
+
+# Comando de inicialização
+CMD ["node", "dist/worker.main.js"]
